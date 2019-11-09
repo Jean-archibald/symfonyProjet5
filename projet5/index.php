@@ -7,7 +7,7 @@ if (isset($_GET['url']))
 }
 
 //PARTIE PUBLIC
-//connexion
+//accueil blog 
 if($url == '')
 {
     $title = 'Blog Delafontaine';
@@ -16,3 +16,23 @@ if($url == '')
 
 }
 
+//connexion 
+elseif(preg_match('#connexion#', $url , $params))
+{
+    $title = 'Blog Delafontaine / Se connecter';
+    $descriptionMeta = 'Connexion pour les membres';
+    require __DIR__.'/Controller/public/connexionPublicController.php';
+
+}
+
+//inscription
+elseif(preg_match('#inscription#', $url , $params))
+{
+    $title = 'Blog Delafontaine / Inscription';
+    $descriptionMeta = 'Devenir membre';
+    require __DIR__.'/Controller/public/inscriptionPublicController.php';
+
+}
+//PARTIE ADMIN
+//Gestion Article
+//rédiger

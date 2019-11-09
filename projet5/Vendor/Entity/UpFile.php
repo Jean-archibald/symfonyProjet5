@@ -7,7 +7,7 @@ use \MyFram\Entity;
 */
 class UpFile extends Entity
 {
-   protected   $up_id,
+   protected   $news_id,
                $up_filename,
                $up_file_url,
                $dateCreated;
@@ -19,9 +19,9 @@ class UpFile extends Entity
 
    //SETTERS//
 
-   public function setUp_id($up_id)
+   public function setNews_id($news_id)
    {
-      $this->up_id = (int) $up_id;
+      $this->news_id = (int) $news_id;
    }
 
    public function setUp_filename($up_filename)
@@ -42,9 +42,9 @@ class UpFile extends Entity
 
    //GETTERS//
 
-   public function up_id()
+   public function news_id()
    {
-      return $this->up_id;
+      return $this->news_id;
    }
 
    public function up_filename()
@@ -52,25 +52,14 @@ class UpFile extends Entity
       return $this->up_filename;
    }
 
-   public function up_file_url()
+   public function up_fileurl()
    {
       return $this->up_file_url;
    }
 
-   public function PDFtext()
-   {
-      return $this->PDFtext;
-   }
-
-
    public function dateCreated()
    {
       return $this->dateCreated;
-   }
-
-   public function errors()
-   {
-      return $this->errors;
    }
 
 }
