@@ -29,15 +29,7 @@ include('Web/inc/allpages/about.php');
 include('Web/inc/allpages/team.php'); 
 ?>
 
-<!-- About -->
-<?php
-include('Web/inc/allpages/clients.php'); 
-?>
 
-<!-- About -->
-<?php
-include('Web/inc/allpages/contact.php'); 
-?>
 
 <!-- portfolio Modal -->
 <?php

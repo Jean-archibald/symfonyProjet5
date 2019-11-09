@@ -11,8 +11,7 @@ if (isset($_GET['url']))
 if($url == '')
 {
     $title = 'Blog Delafontaine';
-    $descriptionMeta = 'Accueil du blog sur du developpeur Delafontaine';
-    $direction = 'homePublic';
+    $descriptionMeta = 'Accueil du blog du développeur Delafontaine';
     require __DIR__.'/Controller/public/homePublicController.php';
 
 }
