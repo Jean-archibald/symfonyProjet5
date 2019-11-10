@@ -1,16 +1,16 @@
 <?php
 namespace Model;
 
-use \Entity\Users;
+use \Entity\User;
 
-class UsersManagerPDO extends UsersManager
+class UserManagerPDO extends UserManager
 {
     /**
      * @see UserManager::add()
      */
-    protected function add(Users $user)
+    protected function add(User $user)
     {
-        $request = $this->dao->prepare('INSERT INTO users(familyName, firstName, email, password, status, trash, dateCreated) 
+        $request = $this->dao->prepare('INSERT INTO users(familyName, firstName, email, password, status, trash, date_created) 
         VALUES(:familyName, :firstName, :email, :password, :status, :trash, NOW())');
 
         $request->bindValue(':familyName', $user->familyName());
@@ -18,7 +18,7 @@ class UsersManagerPDO extends UsersManager
         $request->bindValue(':email', $user->email());
         $request->bindValue(':password', $user->password());
         $request->bindValue(':status', 'utilisateur');
-        $request->bindValue(':trash', 'non');
+        $request->bindValue(':trash', 0);
         
 
         $request->execute();
@@ -115,7 +115,7 @@ class UsersManagerPDO extends UsersManager
      /**
     * @see UserManager::save()
     */
-    public function save(Users $user)
+    public function save(User $user)
     {
         if ($user->isValid())
         {
@@ -130,7 +130,7 @@ class UsersManagerPDO extends UsersManager
      /**
     * @see UserManager::modify()
     */
-    protected function modify(Users $user)
+    protected function modify(User $user)
     {
     $request = $this->dao->prepare('UPDATE users 
     SET  familyName = :familyName, firstName = :firstName, email = :email, password = :password, status = :status, trash = :trash
@@ -152,7 +152,7 @@ class UsersManagerPDO extends UsersManager
      */
     public function getList($start = -1, $limit = -1)
     {
-        $sql = 'SELECT id, familyName, firstName, email, password, status, trash, dateCreated
+        $sql = 'SELECT id, familyName, firstName, email, password, status, trash, date_created
         FROM users
         WHERE trash = \'non\'
         ORDER BY familyName ASC';
@@ -172,7 +172,7 @@ class UsersManagerPDO extends UsersManager
         // Use foreach to give instance of DateTime as created date and modified date.
         foreach ($usersList as $user)
         { 
-            $user->setDateCreated(new \DateTime($user->dateCreated()));
+            $user->setDate_created(new \DateTime($user->date_created()));
         }
 
         $request->closeCursor();
@@ -206,7 +206,7 @@ class UsersManagerPDO extends UsersManager
         // Use foreach to give instance of DateTime as created date and modified date.
         foreach ($usersList as $user)
         {
-            $user->setDateCreated(new \DateTime($user->dateCreated()));
+            $user->setDate_created(new \DateTime($user->date_created()));
         }
 
         $request->closeCursor();

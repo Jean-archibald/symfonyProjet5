@@ -2,16 +2,16 @@
 namespace Model;
 
 use \MyFram\Manager;
-use \Entity\Users;
+use \Entity\User;
 
-abstract class UsersManager extends Manager
+abstract class UserManager extends Manager
 {
     /**
      * Method to add a user.
      * @param $user User The user to add
      * @return void
      */
-    abstract protected function add(Users $user);
+    abstract protected function add(User $user);
 
     /**
     * Method to tell the total number of user
@@ -64,14 +64,14 @@ abstract class UsersManager extends Manager
      * @see self::modify()
      * @return void
      */
-    abstract protected function save(Users $user);
+    abstract protected function save(User $user);
 
     /**
      * Method to modify a user
      * @param $user user the user to modify
      * @return void
      */
-    abstract protected function modify(Users $user);
+    abstract protected function modify(User $user);
 
     /**
      * Method return a list of all users

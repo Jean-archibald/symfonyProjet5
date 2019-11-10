@@ -16,6 +16,14 @@ if($url == '')
 
 }
 
+elseif(preg_match('#accueil#', $url , $params))
+{
+    $title = 'Blog Delafontaine';
+    $descriptionMeta = 'Accueil du blog du développeur Delafontaine';
+    require __DIR__.'/Controller/public/homePublicController.php';
+
+}
+
 //connexion 
 elseif(preg_match('#connexion#', $url , $params))
 {

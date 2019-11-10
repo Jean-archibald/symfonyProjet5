@@ -10,7 +10,7 @@ class UpFileManagerPDO extends UpFileManager
      */
     public function add(UpFile $upfile)
     {
-        $request = $this->dao->prepare('INSERT INTO up_file(news_id, up_filename, up_file_url, trash, dateCreated) 
+        $request = $this->dao->prepare('INSERT INTO upfile(news_id, up_filename, up_file_url, trash, dateCreated) 
         VALUES(:news_id, :up_filename, :up_file_url, :trash, NOW())');
 
         $request->bindValue(':news_id', $upfile->news_id());
@@ -26,7 +26,7 @@ class UpFileManagerPDO extends UpFileManager
      */
     public function count()
     {
-        return $this->dao->query('SELECT COUNT(*) FROM up_file')->fetchColumn();
+        return $this->dao->query('SELECT COUNT(*) FROM upfile')->fetchColumn();
     }
 
     /**
@@ -34,7 +34,7 @@ class UpFileManagerPDO extends UpFileManager
      */
     public function delete($id)
     {
-        $this->dao->exec('DELETE FROM up_file WHERE up_id = '.(int) $id);
+        $this->dao->exec('DELETE FROM upfile WHERE up_id = '.(int) $id);
     }
 
      /**
@@ -42,7 +42,7 @@ class UpFileManagerPDO extends UpFileManager
      */
     public function upFileExist($up_filename)
     {
-        $request = $this->dao->prepare('SELECT * FROM up_file WHERE up_filename = ? ');
+        $request = $this->dao->prepare('SELECT * FROM upfile WHERE up_filename = ? ');
         $request->execute(array($up_filename));
         $upFileExist = $request->rowCount();
 
@@ -55,7 +55,7 @@ class UpFileManagerPDO extends UpFileManager
     public function getList($start = -1, $limit = -1)
     {
         $sql = 'SELECT id, news_id, up_filename, up_file_url, dateCreated
-        FROM up_file
+        FROM upfile
         ORDER BY id DESC';
 
         //Check if the given param are int
@@ -90,7 +90,7 @@ class UpFileManagerPDO extends UpFileManager
     public function getFileByName($up_filename)
     {
         $request = $this->dao->prepare('SELECT id, news_id, up_filename, up_file_url, trash, dateCreated
-        FROM up_file WHERE up_filename = :up_filename');
+        FROM upfile WHERE up_filename = :up_filename');
         $request->bindValue(':up_filename', $up_filename);
         $request->execute();
 

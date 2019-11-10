@@ -12,7 +12,7 @@ class User extends Entity
                 $email,
                 $password,
                 $status,
-                $dateCreated;
+                $date_created;
 
     /**
      * Relatives Constants to possible errors during method execution
@@ -95,9 +95,9 @@ class User extends Entity
         $this->status = $status;
     }
 
-    public function setDateCreated(\DateTime $dateCreated)
+    public function setDate_created(\DateTime $date_created)
     {
-        $this->dateCreated = $dateCreated;
+        $this->date_created = $date_created;
     }
 
    
@@ -128,8 +128,8 @@ class User extends Entity
         return $this->status;
     }
 
-    public function dateCreated()
+    public function date_created()
     {
-        return $this->dateCreated;
+        return $this->date_created;
     }
 }

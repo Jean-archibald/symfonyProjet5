@@ -1,22 +1,19 @@
 <?php
 $dao = \MyFram\PDOFactory::getMySqlConnexion();
-$usersManager = new \Model\UsersManagerPDO($dao);
+$userManager = new \Model\UserManagerPDO($dao);
 ob_start();
-
-include('Web/inc/allpages/header.php'); 
-
 
 if(isset($_POST['email']))
 {  
     $password = sha1($_POST['password']);
     $email = htmlspecialchars($_POST['email']);
-    $userExist = $usersManager->userExist($email,$password);
+    $userExist = $userManager->userExist($email,$password);
     
     if(!empty($password) AND !empty($email))
     {
         if($userExist == 1)
         {
-           $userInfos = $usersManager->getUserByEmail($email);
+           $userInfos = $userManager->getUserByEmail($email);
            $_SESSION['id'] = $userInfos['id'];
            $_SESSION['familyName'] = $userInfos['familyName'];
            $_SESSION['firstName'] = $userInfos['firstName'];
@@ -27,15 +24,18 @@ if(isset($_POST['email']))
         }
         else
         {
-            $message = '<p id="message" title="noConnect">L\'adresse mail n\'est pas répertorié ou le mot de passe est invalide !<p/>';
+            $message = '<p style="color:black";>L\'adresse mail n\'est pas répertorié ou le mot de passe est invalide !<p/>';
         }
     }
 }
 ?>
-<meta name="format-detection" content="telephone=no" />
+<header class="masthead">
+    <div class="container">
+      <div class="intro-text">
+        <div class="intro-lead-in"><meta name="format-detection" content="telephone=no" />
 <div class="container">
       <div class="card card-login mx-auto mt-5">
-        <div class="card-header">Se connecter à l'espace membre</div>
+        <div class="card-header" style="color:black;">Se connecter à l'espace membre</div>
         <div class="card-body">
           <form method="post">
             <p>
@@ -58,10 +58,16 @@ if(isset($_POST['email']))
                 <label for="password">Mot de passe</label>
               </div>
             </div>
+            <input type="submit" value="Se connecter" name="connexion" class="btn btn-primary btn-block"/>
           </form>
         </div>
         </div>
-</div>
+
+      </div>
+    </div>
+  </header>
+
+
 <?php
 $content = ob_get_clean();
 require __DIR__.'/../../View/public/templatePublicView.php';
