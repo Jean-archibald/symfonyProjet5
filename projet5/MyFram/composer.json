@@ -1,0 +1,18 @@
+{
+    "name": "symfony/projet5",
+    "authors": [
+        {
+            "name": "Jean-archibald",
+            "email": "jvjlondon@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4" : {
+            "MyFram\\" : "../MyFram",
+            "Entity\\" : "../Vendor/Entity",
+            "Model\\" : "../Vendor/Model"
+        }
+       
+    }
+    
+}

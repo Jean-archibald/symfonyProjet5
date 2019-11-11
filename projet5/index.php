@@ -1,5 +1,6 @@
 <?php
-require __DIR__.'/Web/Bootstrap.php';
+session_start();
+require __DIR__.'/MyFram/vendor/autoload.php';
 $url = '';
 if (isset($_GET['url']))
 {
