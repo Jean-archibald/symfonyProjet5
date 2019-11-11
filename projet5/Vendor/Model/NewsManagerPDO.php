@@ -10,13 +10,13 @@ class NewsManagerPDO extends NewsManager
      */
     protected function add(News $news)
     {
-        $request = $this->dao->prepare('INSERT INTO news(title, content, publish, trash, dateCreated, dateModified) 
-        VALUES(:title, :content, :publish, :trash, NOW(), NOW())');
+        $request = $this->dao->prepare('INSERT INTO News(title, content, status, trash, dateCreated, dateModified) 
+        VALUES(:title, :content, :status, :trash, NOW(), NOW())');
 
         $request->bindValue(':title', $news->title());
         $request->bindValue(':content', $news->content());
-        $request->bindValue(':publish', false);
-        $request->bindValue(':trash', false);
+        $request->bindValue(':status', 'brouillon');
+        $request->bindValue(':trash', 0);
         
 
         $request->execute();
@@ -27,16 +27,15 @@ class NewsManagerPDO extends NewsManager
      */
     public function count()
     {
-        return $this->dao->query('SELECT COUNT(*) FROM news ')->fetchColumn();
+        return $this->dao->query('SELECT COUNT(*) FROM News ')->fetchColumn();
     }
 
-    
     /**
      * @see NewsManager::delete()
      */
     public function delete($id)
     {
-        $this->dao->exec('DELETE FROM news WHERE id = '.(int) $id);
+        $this->dao->exec('DELETE FROM News WHERE id = '.(int) $id);
     }
 
     /**
@@ -44,8 +43,9 @@ class NewsManagerPDO extends NewsManager
      */
     public function getList($start = -1, $limit = -1)
     {
-        $sql = 'SELECT id, title, content, publish, trash, dateCreated, dateModified 
-        FROM news
+        $sql = 'SELECT id, title, content, status, trash, dateCreated, dateModified 
+        FROM News
+        WHERE trash = \'0\'
         ORDER BY dateCreated DESC';
 
         //Check if the given param are int
@@ -79,8 +79,8 @@ class NewsManagerPDO extends NewsManager
      */
     public function getUnique($id)
     {
-        $request = $this->dao->prepare('SELECT id, title, content, publish, trash, dateCreated, dateModified 
-        FROM news WHERE id = :id');
+        $request = $this->dao->prepare('SELECT id, title, content, status, trash, dateCreated, dateModified 
+        FROM News WHERE id = :id');
         $request->bindValue(':id', (int) $id, \PDO::PARAM_INT);
         $request->execute();
 
@@ -117,13 +117,13 @@ class NewsManagerPDO extends NewsManager
     */
     protected function modify(News $news)
     {
-    $request = $this->dao->prepare('UPDATE news 
-    SET  title = :title, content = :content, publish = :publish, trash = :trash, dateModified = NOW()
+    $request = $this->dao->prepare('UPDATE News 
+    SET  title = :title, content = :content, status = :status, trash = :trash, dateModified = NOW()
     WHERE id = :id');
    
     $request->bindValue(':title', $news->title());
     $request->bindValue(':content', $news->content());
-    $request->bindValue(':publish', $news->publish());
+    $request->bindValue(':status', $news->status());
     $request->bindValue(':trash', $news->trash());
     $request->bindValue(':id', $news->id(), \PDO::PARAM_INT);
 

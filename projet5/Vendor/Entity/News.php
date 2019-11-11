@@ -9,7 +9,7 @@ class News extends Entity
 {
     protected   $title,
                 $content,
-                $publish,
+                $status,
                 $dateCreated,
                 $dateModified;
 
@@ -65,9 +65,9 @@ class News extends Entity
         }
     }
 
-    public function setPublish($publish)
+    public function setStatus($status)
     {
-        $this->publish = $publish;
+        $this->status = $status;
     }
 
 
@@ -92,9 +92,9 @@ class News extends Entity
         return $this->content;
     }
 
-    public function publish()
+    public function status()
     {
-        return $this->publish;
+        return $this->status;
     }
 
 

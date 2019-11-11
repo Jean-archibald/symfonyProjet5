@@ -684,6 +684,63 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 
 /* css perso */
+/* inc/admin/title */
+.divTitle
+{
+  width:100% !important;
+  background-color: black !important;
+  min-height: 200px !important;
+  text-align: center !important;
+  padding-top: 100px !important;
+  padding-bottom: 50px !important;
 
+}
+.styleTitle
+{
+  font-size: 30px !important;
+  color:#fed136 !important;
+}
 
+/*message information*/
+.information
+{
+  margin-top:20px;
+  font-size: 18px;
+  color:black;
+  text-align: center !important;
+}
 
+/*Div of editor*/
+.divEdit
+{
+  margin:20px;
+}
+
+/*Div of pagination system */
+.divPag
+{
+  display: flex;
+  justify-content: space-around;
+  max-width:100px;
+  margin:0 auto;
+  padding-bottom: 20px;
+}
+
+/*Modifier les articles*/
+.boutonModify
+{
+  color:#fed136 !important;
+  background-color:white !important;
+  border: 0px;
+
+}
+
+.linkModify
+{
+  margin-right:5px;
+}
+
+.divBoutonModify
+{
+  display: flex;
+}
