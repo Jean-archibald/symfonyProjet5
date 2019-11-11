@@ -1,5 +1,6 @@
 <?php
-require __DIR__.'/Web/Bootstrap.php';
+session_start();
+require __DIR__.'/MyFram/vendor/autoload.php';
 $url = '';
 if (isset($_GET['url']))
 {
@@ -7,7 +8,7 @@ if (isset($_GET['url']))
 }
 
 //PARTIE PUBLIC
-//connexion
+//accueil blog 
 if($url == '')
 {
     $title = 'Blog Delafontaine';
@@ -16,3 +17,31 @@ if($url == '')
 
 }
 
+elseif(preg_match('#accueil#', $url , $params))
+{
+    $title = 'Blog Delafontaine';
+    $descriptionMeta = 'Accueil du blog du développeur Delafontaine';
+    require __DIR__.'/Controller/public/homePublicController.php';
+
+}
+
+//connexion 
+elseif(preg_match('#connexion#', $url , $params))
+{
+    $title = 'Blog Delafontaine / Se connecter';
+    $descriptionMeta = 'Connexion pour les membres';
+    require __DIR__.'/Controller/public/connexionPublicController.php';
+
+}
+
+//inscription
+elseif(preg_match('#inscription#', $url , $params))
+{
+    $title = 'Blog Delafontaine / Inscription';
+    $descriptionMeta = 'Devenir membre';
+    require __DIR__.'/Controller/public/inscriptionPublicController.php';
+
+}
+//PARTIE ADMIN
+//Gestion Article
+//rédiger

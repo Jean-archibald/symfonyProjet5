@@ -3,11 +3,12 @@ namespace Entity;
 
 use \MyFram\Entity;
 /**
-   * Class represent a chapter
+   * Class represent a comment
 */
-class News extends Entity
+class Comments extends Entity
 {
-    protected   $title,
+    protected   $users_id,
+                $news_id,
                 $content,
                 $publish,
                 $dateCreated,
@@ -16,7 +17,6 @@ class News extends Entity
     /**
      * Relatives Constants to possible errors during method execution
      */
-    const INVALID_TITLE = 1;
     const INVALID_CONTENT = 2;
 
     /**
@@ -29,16 +29,15 @@ class News extends Entity
     }
 
     // SETTERS //
-    public function setTitle($title)
+    
+    public function setUsers_id($users_id)
     {
-        if (!is_string($title) || empty($title))
-        {
-            $this->errors[] = self::INVALID_TITLE;
-        }
-        else
-        {
-            $this->title = $title;
-        }
+        $this->users_id = $users_id;
+    }
+
+    public function setNews_id($news_id)
+    {
+        $this->news_id = $news_id;
     }
 
     public function setContent($content)
@@ -50,18 +49,6 @@ class News extends Entity
         else
         {
             $this->content = $content;
-        }
-    }
-
-    public function setCategory($category)
-    {
-        if (!is_string($category) || empty($category))
-        {
-            $this->errors[] = self::INVALID_CATEGORY;
-        }
-        else
-        {
-            $this->category = $category;
         }
     }
 
@@ -82,9 +69,15 @@ class News extends Entity
     }
 
     // GETTERS //
-    public function title()
+
+    public function users_id()
     {
-        return $this->title;
+        return $this->users_id;
+    }
+
+    public function news_id()
+    {
+        return $this->news_id;
     }
 
     public function content()
@@ -96,7 +89,6 @@ class News extends Entity
     {
         return $this->publish;
     }
-
 
     public function dateCreated()
     {

@@ -10,14 +10,13 @@ class NewsManagerPDO extends NewsManager
      */
     protected function add(News $news)
     {
-        $request = $this->dao->prepare('INSERT INTO news(title, content, publish, trash, upload, dateCreated, dateModified) 
-        VALUES(:title, :content, :publish, :trash, :upload, NOW(), NOW())');
+        $request = $this->dao->prepare('INSERT INTO news(title, content, publish, trash, dateCreated, dateModified) 
+        VALUES(:title, :content, :publish, :trash, NOW(), NOW())');
 
         $request->bindValue(':title', $news->title());
         $request->bindValue(':content', $news->content());
         $request->bindValue(':publish', false);
         $request->bindValue(':trash', false);
-        $request->bindValue(':upload', $news->upload());
         
 
         $request->execute();
@@ -80,7 +79,7 @@ class NewsManagerPDO extends NewsManager
      */
     public function getUnique($id)
     {
-        $request = $this->dao->prepare('SELECT id, title, content, publish, trash, upload, dateCreated, dateModified 
+        $request = $this->dao->prepare('SELECT id, title, content, publish, trash, dateCreated, dateModified 
         FROM news WHERE id = :id');
         $request->bindValue(':id', (int) $id, \PDO::PARAM_INT);
         $request->execute();
@@ -119,14 +118,13 @@ class NewsManagerPDO extends NewsManager
     protected function modify(News $news)
     {
     $request = $this->dao->prepare('UPDATE news 
-    SET  title = :title, content = :content, publish = :publish, trash = :trash, upload = :upload, dateModified = NOW()
+    SET  title = :title, content = :content, publish = :publish, trash = :trash, dateModified = NOW()
     WHERE id = :id');
    
     $request->bindValue(':title', $news->title());
     $request->bindValue(':content', $news->content());
     $request->bindValue(':publish', $news->publish());
     $request->bindValue(':trash', $news->trash());
-    $request->bindValue(':upload', $news->upload());
     $request->bindValue(':id', $news->id(), \PDO::PARAM_INT);
 
     $request->execute();

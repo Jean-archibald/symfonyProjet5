@@ -41,8 +41,6 @@ abstract class NewsManager extends Manager
      */
     abstract public function getUnique($id);
     
-  
-
     /**
      * Method to save a News
      * @param $news news The news to save
@@ -52,8 +50,6 @@ abstract class NewsManager extends Manager
      */
     abstract protected function save(News $news);
     
-    
-
     /**
      * Method to modify a news
      * @param $chapter chapter the chapter to modify
@@ -61,7 +57,5 @@ abstract class NewsManager extends Manager
      */
     abstract protected function modify(News $news);
 
-
-    
 
 }
