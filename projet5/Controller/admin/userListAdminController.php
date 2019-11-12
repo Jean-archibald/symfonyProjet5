@@ -1,10 +1,10 @@
 <?php
 $dao = \MyFram\PDOFactory::getMySqlConnexion();
-$newsManager = new \Model\NewsManagerPDO($dao);
+$userManager = new \Model\UserManagerPDO($dao);
 
 ob_start();
-$numberTotal = $newsManager->count();
-$information = '<p class="information">Il y a '.$numberTotal.' article(s).</p>';
+$numberTotal = $userManager->count();
+$information = '<p class="information">Il y a '.$numberTotal.' abonné(s).</p>';
 ?>
 
 
@@ -15,14 +15,14 @@ $information = '<p class="information">Il y a '.$numberTotal.' article(s).</p>';
     ?>
 </div>
 
-<!-- systeme modification de news -->
+<!-- systeme modification of users -->
 <?php
-    include('Web/inc/admin/modifyNewsForm.php'); 
+    include('Web/inc/admin/modifyUserForm.php'); 
 ?>
 
-<!-- systeme to show table of news -->
+<!-- systeme to show table of users -->
 <?php
-    include('Web/inc/admin/newsList.php'); 
+    include('Web/inc/admin/userList.php'); 
 ?>
 
 <!-- systeme pagination bottom -->

@@ -10,9 +10,10 @@ class NewsManagerPDO extends NewsManager
      */
     protected function add(News $news)
     {
-        $request = $this->dao->prepare('INSERT INTO News(title, content, status, trash, dateCreated, dateModified) 
-        VALUES(:title, :content, :status, :trash, NOW(), NOW())');
+        $request = $this->dao->prepare('INSERT INTO News(user_id, title, content, status, trash, dateCreated, dateModified) 
+        VALUES(:user_id, :title, :content, :status, :trash, NOW(), NOW())');
 
+        $request->bindValue(':user_id', $news->user_id());
         $request->bindValue(':title', $news->title());
         $request->bindValue(':content', $news->content());
         $request->bindValue(':status', 'brouillon');
@@ -27,7 +28,15 @@ class NewsManagerPDO extends NewsManager
      */
     public function count()
     {
-        return $this->dao->query('SELECT COUNT(*) FROM News ')->fetchColumn();
+        return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'0\' ')->fetchColumn();
+    }
+
+     /**
+     * @see NewsManager::count()
+     */
+    public function countTrash()
+    {
+        return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'1\' ')->fetchColumn();
     }
 
     /**
@@ -46,6 +55,42 @@ class NewsManagerPDO extends NewsManager
         $sql = 'SELECT id, title, content, status, trash, dateCreated, dateModified 
         FROM News
         WHERE trash = \'0\'
+        ORDER BY dateCreated DESC';
+
+        //Check if the given param are int
+        if ($start != -1 || $limit != -1)
+        {
+            $sql .= ' LIMIT '.(int) $limit.' OFFSET '.(int) $start;
+        }
+
+        $request = $this->dao->query($sql);
+        $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\News');
+        
+        $newsList = $request->fetchAll();
+        
+
+        // Use foreach to give instance of DateTime as created date and modified date.
+        foreach ($newsList as $news)
+        {
+            
+            $news->setDateCreated(new \DateTime($news->dateCreated()));
+            $news->setDateModified(new \DateTime($news->dateModified()));
+        }
+
+        $request->closeCursor();
+
+        return $newsList;
+    } 
+
+
+    /**
+     * @see NewsManager::getListTrash()
+     */
+    public function getListTrash($start = -1, $limit = -1)
+    {
+        $sql = 'SELECT id, title, content, status, trash, dateCreated, dateModified 
+        FROM News
+        WHERE trash = \'1\'
         ORDER BY dateCreated DESC';
 
         //Check if the given param are int
@@ -118,9 +163,10 @@ class NewsManagerPDO extends NewsManager
     protected function modify(News $news)
     {
     $request = $this->dao->prepare('UPDATE News 
-    SET  title = :title, content = :content, status = :status, trash = :trash, dateModified = NOW()
+    SET  user_id = :user_id, title = :title, content = :content, status = :status, trash = :trash, dateModified = NOW()
     WHERE id = :id');
    
+    $request->bindValue(':user_id', $news->user_id());    
     $request->bindValue(':title', $news->title());
     $request->bindValue(':content', $news->content());
     $request->bindValue(':status', $news->status());

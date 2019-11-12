@@ -1,6 +1,6 @@
 <?php
 $dao = \MyFram\PDOFactory::getMySqlConnexion();
-$manager = new \Model\NewsManagerPDO($dao);
+$newsManager = new \Model\NewsManagerPDO($dao);
 ob_start();
 
 
@@ -19,7 +19,7 @@ if (isset($_POST['title']))
 
     if($news->isValid())
     {
-        $manager->save($news);
+        $newsManager->save($news);
         $message = '<p id="message" title="valide">L\'article a bien été ajouté.<p/>';
     }
     else
@@ -56,7 +56,8 @@ if (isset($_POST['title']))
             <?php
             require __DIR__.'/../../tinymce/index.php';
             ?>
-            <br/>
+            <br/> 
+            
             <input class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" type="submit" value="Enregistrer"/>
             
         </p>

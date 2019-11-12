@@ -19,6 +19,12 @@ abstract class NewsManager extends Manager
     */
     abstract public function count();
 
+      /**
+    * Method to tell the total number of news
+    * @return int
+    */
+    abstract public function countTrash();
+
     /**
      * Method to delete a chapter
      * @param $id int Identification of the chapter to delete
@@ -33,6 +39,14 @@ abstract class NewsManager extends Manager
      * @return array The list of the chapters, Each entrance is an instance of Chapter.
      */
     abstract public function getList($start = -1,$limit = -1);
+
+      /**
+     * Method return a list of asked chapters in trash
+     * @param $start int The first chapter to select
+     * @param $limit int The number of chapter to select
+     * @return array The list of the chapters in trash, Each entrance is an instance of Chapter.
+     */
+    abstract public function getListTrash($start = -1,$limit = -1);
 
     /**
      * Metho return a specific news

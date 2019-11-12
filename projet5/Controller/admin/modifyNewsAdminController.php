@@ -1,10 +1,10 @@
 <?php
 $dao = \MyFram\PDOFactory::getMySqlConnexion();
-$manager = new \Model\NewsManagerPDO($dao);
+$newsManager = new \Model\NewsManagerPDO($dao);
 
 ob_start();
 $newsToModify = "";
-$newsToModify =  $manager->getUnique($id);
+$newsToModify =  $newsManager->getUnique($id);
 
 $title = 'Modification de l\'article : ' . $newsToModify->title() ;
 
@@ -15,7 +15,7 @@ if (isset($_POST['title']))
 
     if($newsToModify->isValid())
     {
-        $manager->save($newsToModify);
+        $newsManager->save($newsToModify);
         $message = '<p id="message" title="valide">L\'article a bien été modifié.<p/>';
     }
     else

@@ -55,7 +55,7 @@ class UserManagerPDO extends UserManager
      */
     public function count()
     {
-        return $this->dao->query('SELECT COUNT(*) FROM users WHERE trash = \'non\'')->fetchColumn();
+        return $this->dao->query('SELECT COUNT(*) FROM users WHERE trash = \'0\'')->fetchColumn();
     }
 
    
@@ -65,7 +65,7 @@ class UserManagerPDO extends UserManager
      */
     public function countTrash()
     {
-        return $this->dao->query('SELECT COUNT(*) FROM users WHERE trash = \'oui\' ')->fetchColumn();
+        return $this->dao->query('SELECT COUNT(*) FROM users WHERE trash = \'1\' ')->fetchColumn();
     }
 
     /**
@@ -154,7 +154,7 @@ class UserManagerPDO extends UserManager
     {
         $sql = 'SELECT id, familyName, firstName, email, password, status, trash, date_created
         FROM users
-        WHERE trash = \'non\'
+        WHERE trash = \'0\'
         ORDER BY familyName ASC';
 
         //Check if the given param are int
@@ -184,12 +184,12 @@ class UserManagerPDO extends UserManager
      /**
      * @see UserManager::getTrashList()
      */
-    public function getTrashList($start = -1, $limit = -1)
+    public function getListTrash($start = -1, $limit = -1)
     {
 
-        $sql = 'SELECT id, familyName, firstName, email, password, status, trash, dateCreated
+        $sql = 'SELECT id, familyName, firstName, email, password, status, trash, date_created
         FROM users
-        WHERE trash = \'oui\'
+        WHERE trash = \'1\'
         ORDER BY familyName ASC';
         //Check if the given param are int
         if ($start != -1 || $limit != -1)

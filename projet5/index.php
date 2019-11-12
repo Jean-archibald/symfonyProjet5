@@ -42,6 +42,15 @@ elseif(preg_match('#inscription#', $url , $params))
     require __DIR__.'/Controller/public/inscriptionPublicController.php';
 
 }
+
+//lire article
+elseif(preg_match('#lire-([0-9]+)#', $url , $params))
+{
+    $id = $params[1];
+    require __DIR__.'/Controller/public/uniqueNewsPublicController.php';
+}
+
+
 //PARTIE ADMIN
 //accueil Admin
 elseif(preg_match('#homeAdmin#', $url , $params))
@@ -76,4 +85,56 @@ elseif(preg_match('#listeArticles-([0-9]+)-([0-9]+)#', $url , $params))
     $pag = $params[1];
     $id = $params[2];
     require __DIR__.'/Controller/admin/newsListAdminController.php';
+}
+//Gestion Abonné
+//liste abonné
+elseif(preg_match('#listeAbonne-([0-9]+)-([0-9]+)#', $url , $params))
+{
+    $title = 'Liste des abonnés';
+    $descriptionMeta = 'La liste des abonnés';
+    $cutUrl = explode("-", $url);
+    $base = $cutUrl[0];
+    $pag = $params[1];
+    $id = $params[2];
+    require __DIR__.'/Controller/admin/userListAdminController.php';
+}
+//Gestion Corbeille
+//liste abonné dans corbeille
+elseif(preg_match('#corbeilleAbonnes-([0-9]+)-([0-9]+)#', $url , $params))
+{
+    $title = 'Liste des abonnés dans la corbeille';
+    $descriptionMeta = 'Corbeille : La liste des abonnés';
+    $cutUrl = explode("-", $url);
+    $base = $cutUrl[0];
+    $pag = $params[1];
+    $id = $params[2];
+    $trashDirection = "user";
+    $modifyFormDirection = "User";
+    require __DIR__.'/Controller/admin/trashListAdminController.php';
+}
+//liste commentaire dans corbeille
+elseif(preg_match('#corbeilleCommentaires-([0-9]+)-([0-9]+)#', $url , $params))
+{
+    $title = 'Liste des commentaires dans la corbeille';
+    $descriptionMeta = 'Corbeille : La liste des commentaires';
+    $cutUrl = explode("-", $url);
+    $base = $cutUrl[0];
+    $pag = $params[1];
+    $id = $params[2];
+    $trashDirection = "comment";
+    $modifyFormDirection = "Comment";
+    require __DIR__.'/Controller/admin/trashListAdminController.php';
+}
+//liste article dans corbeille
+elseif(preg_match('#corbeilleArticles-([0-9]+)-([0-9]+)#', $url , $params))
+{
+    $title = 'Liste des articles dans la corbeille';
+    $descriptionMeta = 'Corbeille : La liste des articles';
+    $cutUrl = explode("-", $url);
+    $base = $cutUrl[0];
+    $pag = $params[1];
+    $id = $params[2];
+    $trashDirection = "news";
+    $modifyFormDirection = "News";
+    require __DIR__.'/Controller/admin/trashListAdminController.php';
 }

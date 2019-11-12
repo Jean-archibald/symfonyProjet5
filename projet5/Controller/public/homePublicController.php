@@ -1,6 +1,6 @@
 <?php
 $dao = \MyFram\PDOFactory::getMySqlConnexion();
-$manager = new \Model\NewsManagerPDO($dao);
+$newsManager = new \Model\NewsManagerPDO($dao);
 ob_start();
 ?>
 <!-- Header -->

@@ -28,7 +28,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="#">Commentaires</a>
-            <a class="dropdown-item" href="#">Liste abonnés</a>
+            <a class="dropdown-item" href="listeAbonne-0-0">Liste abonnés</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -37,9 +37,9 @@
             <span>Corbeille</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="#">Abonnés</a>
-            <a class="dropdown-item" href="#">Articles</a>
-            <a class="dropdown-item" href="#">Commentaires</a>
+            <a class="dropdown-item" href="corbeilleAbonnes-0-0">Abonnés</a>
+            <a class="dropdown-item" href="corbeilleArticles-0-0">Articles</a>
+            <a class="dropdown-item" href="corbeilleCommentaires-0-0">Commentaires</a>
           </div>
         </li>
         </ul>
