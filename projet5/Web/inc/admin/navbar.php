@@ -42,6 +42,9 @@
             <a class="dropdown-item" href="corbeilleCommentaires-0-0">Commentaires</a>
           </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="sessiondestroy">Deconnexion</a>
+          </li>
         </ul>
       </div>
     </div>

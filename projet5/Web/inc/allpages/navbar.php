@@ -14,12 +14,31 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="liste-articles-0">Articles</a>
           </li>
+          <?php if (!isset($_SESSION['status']))
+          { ?>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="inscription">S'inscrire</a>
           </li>
+          <?php
+          }
+          ?>
+          <?php if (!isset($_SESSION['status']))
+          { ?>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="connexion">Connexion</a>
           </li>
+          <?php
+          }
+          ?>
+          
+          <?php if (isset($_SESSION['status']))
+          { ?>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="sessiondestroy">Deconnexion</a>
+          </li>
+          <?php
+          }
+          ?>
         </ul>
       </div>
     </div>
