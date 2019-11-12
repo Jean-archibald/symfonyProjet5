@@ -84,7 +84,9 @@ elseif(preg_match('#listeArticles-([0-9]+)-([0-9]+)#', $url , $params))
     $base = $cutUrl[0];
     $pag = $params[1];
     $id = $params[2];
-    require __DIR__.'/Controller/admin/newsListAdminController.php';
+    $direction = "news";
+    $modifyFormDirection = "News";
+    require __DIR__.'/Controller/admin/listAdminController.php';
 }
 //Gestion Abonné
 //liste abonné
@@ -96,7 +98,9 @@ elseif(preg_match('#listeAbonne-([0-9]+)-([0-9]+)#', $url , $params))
     $base = $cutUrl[0];
     $pag = $params[1];
     $id = $params[2];
-    require __DIR__.'/Controller/admin/userListAdminController.php';
+    $direction = "user";
+    $modifyFormDirection = "User";
+    require __DIR__.'/Controller/admin/listAdminController.php';
 }
 //Gestion Corbeille
 //liste abonné dans corbeille
@@ -108,9 +112,9 @@ elseif(preg_match('#corbeilleAbonnes-([0-9]+)-([0-9]+)#', $url , $params))
     $base = $cutUrl[0];
     $pag = $params[1];
     $id = $params[2];
-    $trashDirection = "user";
+    $direction = "userTrash";
     $modifyFormDirection = "User";
-    require __DIR__.'/Controller/admin/trashListAdminController.php';
+    require __DIR__.'/Controller/admin/listAdminController.php';
 }
 //liste commentaire dans corbeille
 elseif(preg_match('#corbeilleCommentaires-([0-9]+)-([0-9]+)#', $url , $params))
@@ -121,9 +125,9 @@ elseif(preg_match('#corbeilleCommentaires-([0-9]+)-([0-9]+)#', $url , $params))
     $base = $cutUrl[0];
     $pag = $params[1];
     $id = $params[2];
-    $trashDirection = "comment";
+    $direction = "commentTrash";
     $modifyFormDirection = "Comment";
-    require __DIR__.'/Controller/admin/trashListAdminController.php';
+    require __DIR__.'/Controller/admin/listAdminController.php';
 }
 //liste article dans corbeille
 elseif(preg_match('#corbeilleArticles-([0-9]+)-([0-9]+)#', $url , $params))
@@ -134,7 +138,7 @@ elseif(preg_match('#corbeilleArticles-([0-9]+)-([0-9]+)#', $url , $params))
     $base = $cutUrl[0];
     $pag = $params[1];
     $id = $params[2];
-    $trashDirection = "news";
+    $direction = "newsTrash";
     $modifyFormDirection = "News";
-    require __DIR__.'/Controller/admin/trashListAdminController.php';
+    require __DIR__.'/Controller/admin/listAdminController.php';
 }

@@ -20,7 +20,7 @@ if(isset($_POST['email']))
            $_SESSION['email'] = $userInfos['email'];
            $_SESSION['password'] = $userInfos['password'];
            $_SESSION['status'] = $userInfos['status'];
-           header('Location: blogAccueil');
+           header('Location: accueil');
         }
         else
         {
