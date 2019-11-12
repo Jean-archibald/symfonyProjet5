@@ -81,6 +81,13 @@ abstract class UserManager extends Manager
      */
     abstract public function getList($start ,$limit );
 
+    /**
+     * Method return a list of all users in trash
+     * @param $start int the first member
+     * @param $limit int The last member
+     * @return array The list of the users, Each entrance is an instance of User.
+     */
+    abstract public function getListTrash($start ,$limit );
     
 
 }

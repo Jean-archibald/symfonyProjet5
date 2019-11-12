@@ -12,7 +12,7 @@
             <a class="nav-link js-scroll-trigger" href="accueil">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="liste-articles">Articles</a>
+            <a class="nav-link js-scroll-trigger" href="liste-articles-0">Articles</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="inscription">S'inscrire</a>

@@ -33,7 +33,7 @@
               <a href="#">Terms of Use</a>
             </li>
             <li class="list-inline-item">
-              <a href="homeAdmin">Administration</a>
+              <a href="accueil">Retour utilisateur</a>
             </li>
           </ul>
         </div>

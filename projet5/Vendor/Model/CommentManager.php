@@ -2,16 +2,16 @@
 namespace Model;
 
 use \MyFram\Manager;
-use \Entity\Comments;
+use \Entity\Comment;
 
-abstract class CommentsManager extends Manager
+abstract class CommentManager extends Manager
 {
     /**
      * Method to add a comment.
      * @param $comments Comments The comment to add
      * @return void
      */
-    abstract protected function add(Comments $comments);
+    abstract protected function add(Comment $comments);
 
     /**
     * Method to tell the total number of comments
@@ -49,7 +49,7 @@ abstract class CommentsManager extends Manager
      * @see self::modify()
      * @return void
      */
-    abstract protected function save(Comments $comments);
+    abstract protected function save(Comment $comments);
     
     
 
@@ -58,7 +58,7 @@ abstract class CommentsManager extends Manager
      * @param $comments comment the comment to modify
      * @return void
      */
-    abstract protected function modify(Comments $comments);
+    abstract protected function modify(Comment $comments);
 
 
     

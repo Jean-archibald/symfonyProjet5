@@ -21,6 +21,8 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
   <!-- Custom styles for this template -->
+  <link href="Web/css/agency.css" rel="stylesheet">
   <link href="Web/css/agency.min.css" rel="stylesheet">
+
 
 </head>

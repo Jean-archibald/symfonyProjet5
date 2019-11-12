@@ -1,20 +1,20 @@
 <?php
 namespace Model;
 
-use \Entity\Comments;
+use \Entity\Comment;
 
-class CommentsManagerPDO extends CommentsManager
+class CommentManagerPDO extends CommentManager
 {
     /**
-     * @see CommentsManager::add()
+     * @see CommentManager::add()
      */
-    protected function add(Comments $comments)
+    protected function add(Comment $comment)
     {
         $request = $this->dao->prepare('INSERT INTO news(users_id, news_id, content, publish, trash, dateCreated, dateModified) 
         VALUES(:users_id, :news_id, :content, :publish, :trash, NOW(), NOW())');
 
-        $request->bindValue(':users_id', $comments->users_id());
-        $request->bindValue(':news_id', $comments->news_id());
+        $request->bindValue(':users_id', $comment->users_id());
+        $request->bindValue(':news_id', $comment->news_id());
         $request->bindValue(':publish', false);
         $request->bindValue(':trash', false);
         
@@ -23,7 +23,7 @@ class CommentsManagerPDO extends CommentsManager
     }
 
     /**
-     * @see CommentsManager::count()
+     * @see CommentManager::count()
      */
     public function count()
     {
@@ -32,7 +32,7 @@ class CommentsManagerPDO extends CommentsManager
 
     
     /**
-     * @see CommentsManager::delete()
+     * @see CommentManager::delete()
      */
     public function delete($id)
     {
@@ -40,7 +40,7 @@ class CommentsManagerPDO extends CommentsManager
     }
 
     /**
-     * @see CommentsManager::getList()
+     * @see CommentManager::getList()
      */
     public function getList($start = -1, $limit = -1)
     {
@@ -61,11 +61,11 @@ class CommentsManagerPDO extends CommentsManager
         
 
         // Use foreach to give instance of DateTime as created date and modified date.
-        foreach ($commentsList as $comments)
+        foreach ($commentsList as $comment)
         {
             
-            $comments->setDateCreated(new \DateTime($comments->dateCreated()));
-            $comments->setDateModified(new \DateTime($comments->dateModified()));
+            $comment->setDateCreated(new \DateTime($comment->dateCreated()));
+            $comment->setDateModified(new \DateTime($comment->dateModified()));
         }
 
         $request->closeCursor();
@@ -75,7 +75,7 @@ class CommentsManagerPDO extends CommentsManager
       
 
     /**
-     * @see CommentsManager::getUnique()
+     * @see CommentManager::getUnique()
      */
     public function getUnique($id)
     {
@@ -86,22 +86,22 @@ class CommentsManagerPDO extends CommentsManager
 
         $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comments');
 
-        $comments = $request->fetch();
+        $comment = $request->fetch();
 
-        $comments->setDateCreated(new \DateTime($comments->dateCreated()));
-        $comments->setDateModified(new \DateTime($comments->dateModified()));
+        $comment->setDateCreated(new \DateTime($comment->dateCreated()));
+        $comment->setDateModified(new \DateTime($comment->dateModified()));
    
-        return $comments;
+        return $comment;
     }
 
     /**
     * @see CommentsManager::save()
     */
-    public function save (Comments $comments)
+    public function save (Comments $comment)
     {
-        if ($comments->isValid())
+        if ($comment->isValid())
         {
-            $comments->isNew() ? $this->add($comments) : $this->modify($comments);
+            $comment->isNew() ? $this->add($comment) : $this->modify($comment);
         }
         else
         {
@@ -112,18 +112,18 @@ class CommentsManagerPDO extends CommentsManager
     /**
     * @see CommentsManager::modify()
     */
-    protected function modify(Comments $comments)
+    protected function modify(Comment $comment)
     {
     $request = $this->dao->prepare('UPDATE comments 
     SET  users_id = :users_id, news_id = :news_id, content = :content, publish = :publish, trash = :trash, dateModified = NOW()
     WHERE id = :id');
    
-    $request->bindValue(':users_id', $comments->users_id());
-    $request->bindValue(':news_id', $comments->news_id());
-    $request->bindValue(':content', $comments->content());
-    $request->bindValue(':publish', $comments->publish());
-    $request->bindValue(':trash', $comments->trash());
-    $request->bindValue(':id', $comments->id(), \PDO::PARAM_INT);
+    $request->bindValue(':users_id', $comment->users_id());
+    $request->bindValue(':news_id', $comment->news_id());
+    $request->bindValue(':content', $comment->content());
+    $request->bindValue(':publish', $comment->publish());
+    $request->bindValue(':trash', $comment->trash());
+    $request->bindValue(':id', $comment->id(), \PDO::PARAM_INT);
 
     $request->execute();
     }

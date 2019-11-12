@@ -7,9 +7,10 @@ use \MyFram\Entity;
 */
 class News extends Entity
 {
-    protected   $title,
+    protected   $user_id,
+                $title,
                 $content,
-                $publish,
+                $status,
                 $dateCreated,
                 $dateModified;
 
@@ -29,6 +30,12 @@ class News extends Entity
     }
 
     // SETTERS //
+
+    public function setUserId($user_id)
+    {
+         $this->user_id = $user_id;
+    }
+
     public function setTitle($title)
     {
         if (!is_string($title) || empty($title))
@@ -53,21 +60,9 @@ class News extends Entity
         }
     }
 
-    public function setCategory($category)
+    public function setStatus($status)
     {
-        if (!is_string($category) || empty($category))
-        {
-            $this->errors[] = self::INVALID_CATEGORY;
-        }
-        else
-        {
-            $this->category = $category;
-        }
-    }
-
-    public function setPublish($publish)
-    {
-        $this->publish = $publish;
+        $this->status = $status;
     }
 
 
@@ -82,6 +77,11 @@ class News extends Entity
     }
 
     // GETTERS //
+    public function user_id()
+    {
+        return $this->user_id;
+    }
+    
     public function title()
     {
         return $this->title;
@@ -92,9 +92,9 @@ class News extends Entity
         return $this->content;
     }
 
-    public function publish()
+    public function status()
     {
-        return $this->publish;
+        return $this->status;
     }
 
 

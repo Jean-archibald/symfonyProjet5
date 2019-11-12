@@ -684,6 +684,145 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 
 /* css perso */
+/* inc/admin/title */
+.divTitleAdmin
+{
+  width:100% !important;
+  background-color: black !important;
+  min-height: 200px !important;
+  text-align: center !important;
+  padding-top: 100px !important;
+  padding-bottom: 50px !important;
 
+}
+.styleTitleAdmin
+{
+  font-size: 30px !important;
+  color:#fed136 !important;
+}
 
+/* inc/public/title */
+.divTitlePublic
+{
+  width:100% !important;
+  background-color: #FF4500 !important;
+  min-height: 200px !important;
+  text-align: center !important;
+  padding-top: 100px !important;
+  padding-bottom: 50px !important;
 
+}
+.styleTitlePublic
+{
+  font-size: 30px !important;
+  color:#fed136 !important;
+}
+
+/*message information*/
+.information
+{
+  margin-top:20px;
+  font-size: 18px;
+  color:black;
+  text-align: center !important;
+}
+
+/*Div of editor*/
+.divEdit
+{
+  margin:20px;
+}
+
+/*Div of pagination system */
+.divPag
+{
+  display: flex;
+  justify-content: space-around;
+  max-width:100px;
+  margin:0 auto;
+  padding-bottom: 20px;
+}
+
+/*Modifier les articles*/
+.boutonModify
+{
+  color:#fed136 !important;
+  background-color:white !important;
+  border: 0px;
+
+}
+.boutonModify:hover
+{
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.divBoutonModify
+{
+  display: flex;
+  
+}
+
+.linkModify
+{
+  margin-right:5px;
+  margin-left:5px;
+}
+
+@media (max-width: 750px) {
+  .divBoutonModify
+  {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/*page article unique */
+.article
+{
+  text-align: center;
+  background-color: white;
+  margin:30px;
+  padding:30px;
+  border: 1px solid;
+  border-color:#FF4500;
+}
+
+/*page home admin */
+
+.homeAdminContainer
+{
+  display: flex;
+}
+
+@media (max-width: 750px) {
+  .homeAdminContainer
+  {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.h2HomeAdmin
+{
+  text-align: center;
+  font-size: 24px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+.buttonHomeAdmin
+{
+margin: 0 auto;
+max-width:200px;
+display: flex;
+flex-direction: column;
+}
+
+.buttonModifyHomeAdmin
+{
+  margin-top:10px;
+}
+
+.buttonModifyHomeAdmin:hover
+{
+  color: #FF4500 !important;
+}
