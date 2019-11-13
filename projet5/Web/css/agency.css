@@ -826,3 +826,11 @@ flex-direction: column;
 {
   color: #FF4500 !important;
 }
+
+/*liste article public */
+@media (max-width: 750px) {
+  .responsiveTable
+  {
+    display: none;
+  }
+}

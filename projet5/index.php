@@ -49,6 +49,16 @@ elseif(preg_match('#inscription#', $url , $params))
 
 }
 
+//liste des articles
+elseif(preg_match('#articles-([0-9]+)#', $url , $params))
+{
+    $cutUrl = explode("-", $url);
+    $base = $cutUrl[0];
+    $pag = $params[1];
+    $title = 'La liste des articles publiés';
+    require __DIR__.'/Controller/public/listPublicController.php';
+}
+
 //lire article
 elseif(preg_match('#lire-([0-9]+)#', $url , $params))
 {
@@ -56,7 +66,7 @@ elseif(preg_match('#lire-([0-9]+)#', $url , $params))
     require __DIR__.'/Controller/public/uniqueNewsPublicController.php';
 }
 
-//lire article
+//erreur d'autorisation de statut
 elseif(preg_match('#error404#', $url , $params))
 {
     $title = 'Blog Delafontaine / Erreur 404';

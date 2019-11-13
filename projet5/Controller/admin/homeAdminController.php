@@ -7,19 +7,19 @@ ob_start();
     
     <div class="buttonHomeAdmin">
         <h2 class="h2HomeAdmin">Intéragir avec les articles</h2>
-        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Rédiger un article</a>
-        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Liste des articles</a>
+        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="redigerArticle">Rédiger un article</a>
+        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="listeArticles-0-0">Liste des articles</a>
     </div>
     <div class="buttonHomeAdmin">
         <h2 class="h2HomeAdmin">Intéragir avec les abonnés</h2>
-        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Liste des commentaires</a>
-        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Liste des abonnés</a>
+        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="listeCommentaire-0-0">Liste des commentaires</a>
+        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="listeAbonne-0-0">Liste des abonnés</a>
     </div>
     <div class="buttonHomeAdmin">
         <h2 class="h2HomeAdmin">Intéragir avec les corbeilles</h2>
-        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Corbeille Article</a>
-        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Corbeille Abonné</a>
-        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Corbeille Commentaire</a>
+        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="corbeilleArticles-0-0">Corbeille Article</a>
+        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="corbeilleAbonnes-0-0">Corbeille Abonné</a>
+        <a class="buttonModifyHomeAdmin btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="corbeilleCommentaires-0-0">Corbeille Commentaire</a>
     </div>
 </div>
 <?php
