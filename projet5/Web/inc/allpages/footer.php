@@ -32,9 +32,15 @@
             <li class="list-inline-item">
               <a href="#">Terms of Use</a>
             </li>
+            <?php if ( isset($_SESSION['status']) && $_SESSION['status'] == "administrateur")
+            {
+            ?>
             <li class="list-inline-item">
               <a href="homeAdmin">Administration</a>
             </li>
+            <?php
+            }
+            ?>
           </ul>
         </div>
       </div>

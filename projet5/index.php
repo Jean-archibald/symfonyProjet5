@@ -34,6 +34,12 @@ elseif(preg_match('#connexion#', $url , $params))
 
 }
 
+//deconnexion
+elseif(preg_match('#sessiondestroy#', $url , $params))
+{
+    require __DIR__.'/Controller/public/deconnexionPublicController.php';
+}
+
 //inscription
 elseif(preg_match('#inscription#', $url , $params))
 {
@@ -43,6 +49,16 @@ elseif(preg_match('#inscription#', $url , $params))
 
 }
 
+//liste des articles
+elseif(preg_match('#articles-([0-9]+)#', $url , $params))
+{
+    $cutUrl = explode("-", $url);
+    $base = $cutUrl[0];
+    $pag = $params[1];
+    $title = 'La liste des articles publiés';
+    require __DIR__.'/Controller/public/listPublicController.php';
+}
+
 //lire article
 elseif(preg_match('#lire-([0-9]+)#', $url , $params))
 {
@@ -50,6 +66,13 @@ elseif(preg_match('#lire-([0-9]+)#', $url , $params))
     require __DIR__.'/Controller/public/uniqueNewsPublicController.php';
 }
 
+//erreur d'autorisation de statut
+elseif(preg_match('#error404#', $url , $params))
+{
+    $title = 'Blog Delafontaine / Erreur 404';
+    $descriptionMeta = 'Accès interdit';
+    require __DIR__.'/Controller/public/errorPublicController.php';
+}
 
 //PARTIE ADMIN
 //accueil Admin
@@ -57,7 +80,8 @@ elseif(preg_match('#homeAdmin#', $url , $params))
 {
     $title = 'Accueil du backoffice';
     $descriptionMeta = 'Accueil du backoffice du blog';
-    require __DIR__.'/Controller/admin/homeAdminController.php';
+    $road = 'home';
+    require __DIR__.'/Controller/admin/validAdminController.php';
 }
 //Gestion Article
 //rédiger
@@ -65,7 +89,8 @@ elseif(preg_match('#redigerArticle#', $url , $params))
 {
     $title = 'Rédiger un article';
     $descriptionMeta = 'Rédaction d\'un article';
-    require __DIR__.'/Controller/admin/writeAdminController.php';
+    $road = 'write';
+    require __DIR__.'/Controller/admin/validAdminController.php';
 }
 //modifier un article
 elseif(preg_match('#modifierArticle-([0-9]+)#', $url , $params))
@@ -73,7 +98,8 @@ elseif(preg_match('#modifierArticle-([0-9]+)#', $url , $params))
     $title = 'Rédaction d\'un article';
     $descriptionMeta = 'Partie Admin de la modification des articles';
     $id = $params[1];
-    require __DIR__.'/Controller/admin/modifyNewsAdminController.php';
+    $road = 'modifyNews';
+    require __DIR__.'/Controller/admin/validAdminController.php';
 }
 //liste article
 elseif(preg_match('#listeArticles-([0-9]+)-([0-9]+)#', $url , $params))
@@ -84,7 +110,10 @@ elseif(preg_match('#listeArticles-([0-9]+)-([0-9]+)#', $url , $params))
     $base = $cutUrl[0];
     $pag = $params[1];
     $id = $params[2];
-    require __DIR__.'/Controller/admin/newsListAdminController.php';
+    $direction = "news";
+    $modifyFormDirection = "News";
+    $road = 'list';
+    require __DIR__.'/Controller/admin/validAdminController.php';
 }
 //Gestion Abonné
 //liste abonné
@@ -96,7 +125,10 @@ elseif(preg_match('#listeAbonne-([0-9]+)-([0-9]+)#', $url , $params))
     $base = $cutUrl[0];
     $pag = $params[1];
     $id = $params[2];
-    require __DIR__.'/Controller/admin/userListAdminController.php';
+    $direction = "user";
+    $modifyFormDirection = "User";
+    $road = 'list';
+    require __DIR__.'/Controller/admin/validAdminController.php';
 }
 //Gestion Corbeille
 //liste abonné dans corbeille
@@ -108,9 +140,10 @@ elseif(preg_match('#corbeilleAbonnes-([0-9]+)-([0-9]+)#', $url , $params))
     $base = $cutUrl[0];
     $pag = $params[1];
     $id = $params[2];
-    $trashDirection = "user";
+    $direction = "userTrash";
     $modifyFormDirection = "User";
-    require __DIR__.'/Controller/admin/trashListAdminController.php';
+    $road = 'list';
+    require __DIR__.'/Controller/admin/validAdminController.php';
 }
 //liste commentaire dans corbeille
 elseif(preg_match('#corbeilleCommentaires-([0-9]+)-([0-9]+)#', $url , $params))
@@ -121,9 +154,10 @@ elseif(preg_match('#corbeilleCommentaires-([0-9]+)-([0-9]+)#', $url , $params))
     $base = $cutUrl[0];
     $pag = $params[1];
     $id = $params[2];
-    $trashDirection = "comment";
+    $direction = "commentTrash";
     $modifyFormDirection = "Comment";
-    require __DIR__.'/Controller/admin/trashListAdminController.php';
+    $road = 'list';
+    require __DIR__.'/Controller/admin/validAdminController.php';
 }
 //liste article dans corbeille
 elseif(preg_match('#corbeilleArticles-([0-9]+)-([0-9]+)#', $url , $params))
@@ -134,7 +168,8 @@ elseif(preg_match('#corbeilleArticles-([0-9]+)-([0-9]+)#', $url , $params))
     $base = $cutUrl[0];
     $pag = $params[1];
     $id = $params[2];
-    $trashDirection = "news";
+    $direction = "newsTrash";
     $modifyFormDirection = "News";
-    require __DIR__.'/Controller/admin/trashListAdminController.php';
+    $road = 'list';
+    require __DIR__.'/Controller/admin/validAdminController.php';
 }

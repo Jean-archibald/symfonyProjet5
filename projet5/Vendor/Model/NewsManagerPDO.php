@@ -32,7 +32,7 @@ class NewsManagerPDO extends NewsManager
     }
 
      /**
-     * @see NewsManager::count()
+     * @see NewsManager::countTrash()
      */
     public function countTrash()
     {

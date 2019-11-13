@@ -20,11 +20,11 @@ if(isset($_POST['email']))
            $_SESSION['email'] = $userInfos['email'];
            $_SESSION['password'] = $userInfos['password'];
            $_SESSION['status'] = $userInfos['status'];
-           header('Location: blogAccueil');
+           header("Location:./");
         }
         else
         {
-            $message = '<p style="color:black";>L\'adresse mail n\'est pas répertorié ou le mot de passe est invalide !<p/>';
+            $message = '<p class="information">L\'adresse mail n\'est pas répertorié ou le mot de passe est invalide !<p/>';
         }
     }
 }

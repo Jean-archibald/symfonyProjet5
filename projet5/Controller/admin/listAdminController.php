@@ -3,20 +3,35 @@ $dao = \MyFram\PDOFactory::getMySqlConnexion();
 $userManager = new \Model\UserManagerPDO($dao);
 $newsManager = new \Model\NewsManagerPDO($dao);
 
-if ($trashDirection == "news")
+if ($direction == "newsTrash")
 {
-$numberTotal = $newsManager->countTrash();
-$information = '<p class="information">Il y a '.$numberTotal.' article(s) dans la corbeille.</p>';
+    $numberTotal = $newsManager->countTrash();
+    $information = '<p class="information">Il y a '.$numberTotal.' article(s) dans la corbeille.</p>';
 }
-elseif($trashDirection == "user")
+if ($direction == "news")
+{
+    $numberTotal = $newsManager->count();
+    $information = '<p class="information">Il y a '.$numberTotal.' article(s).</p>';
+}
+elseif($direction == "userTrash")
 {
     $numberTotal = $userManager->countTrash();
     $information = '<p class="information">Il y a '.$numberTotal.' abonné(s) dans la corbeille.</p>';
 }
-elseif($trashDirection == "comments")
+elseif($direction == "user")
+{
+    $numberTotal = $userManager->count();
+    $information = '<p class="information">Il y a '.$numberTotal.' abonné(s).</p>';
+}
+elseif($direction == "commentsTrash")
 {
     $numberTotal = $commentManager->countTrash();
     $information = '<p class="information">Il y a '.$numberTotal.' commentaire(s) dans la corbeille.</p>';
+}
+elseif($direction == "comments")
+{
+    $numberTotal = $commentManager->count();
+    $information = '<p class="information">Il y a '.$numberTotal.' commentaire(s).</p>';
 }
 
 ob_start();
@@ -36,7 +51,7 @@ ob_start();
 
 <!-- systeme to show trash list -->
 <?php
-    include('Web/inc/admin/'.$trashDirection.'TrashList.php'); 
+    include('Web/inc/admin/'.$direction.'List.php'); 
 ?>
 
 <!-- systeme pagination bottom -->

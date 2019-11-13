@@ -1,28 +1,22 @@
 <?php
 $dao = \MyFram\PDOFactory::getMySqlConnexion();
+$userManager = new \Model\UserManagerPDO($dao);
 $newsManager = new \Model\NewsManagerPDO($dao);
 
-ob_start();
 $numberTotal = $newsManager->count();
 $information = '<p class="information">Il y a '.$numberTotal.' article(s).</p>';
+ob_start();
 ?>
 
 
 <!-- systeme pagination top -->
-<div>
-    <?php
-        include('Web/inc/allpages/pagination1.php'); 
-    ?>
-</div>
-
-<!-- systeme modification de news -->
 <?php
-    include('Web/inc/admin/modifyNewsForm.php'); 
+    include('Web/inc/allpages/pagination1.php'); 
 ?>
 
-<!-- systeme to show table of news -->
+<!-- systeme to show trash list -->
 <?php
-    include('Web/inc/admin/newsList.php'); 
+    include('Web/inc/allpages/newsList.php'); 
 ?>
 
 <!-- systeme pagination bottom -->
@@ -33,5 +27,5 @@ $information = '<p class="information">Il y a '.$numberTotal.' article(s).</p>';
 
 <?php
 $content = ob_get_clean();
-require __DIR__.'/../../View/admin/templateAdminView.php';
+require __DIR__.'/../../View/public/uniqueArticleView.php';
 ?>
