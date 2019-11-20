@@ -3,7 +3,7 @@ $user = "";
 
 if (isset($_POST['trash']))
 {
-    preg_match('#listeAbonne-([0-9]+)-([0-9]+)#', $url , $params);
+    preg_match('#listeAbonnes-([0-9]+)-([0-9]+)#', $url , $params);
     $cutUrl = explode("-", $url);
     $id = $params[2];
     $user = $userManager->getUserById($id);
@@ -46,6 +46,28 @@ if (isset($_POST['delete']))
     $userFamilyName = $user->familyName();
     $userFirstName = $user->firstName();
     $user_id = $user->id();
+
+    $newsExist = $newsManager->newsExist($user_id);
+    if($newsExist >= 1)
+    {   
+        foreach ($newsManager->getListByAutor($user_id) as $news)
+            {
+                $news_id = $news->id();
+                $newsManager->delete($news_id);
+            }
+    }
+    
+    $commentsExistOfUser = $commentManager->commentsExistOfUser($user_id);
+    if($commentsExistOfUser >= 1)
+    {   
+        foreach ($commentManager->getListByCommentOfUser($user_id) as $comment)
+            {
+                $comment_id = $comment->id();
+                $commentManager->delete($comment_id);
+            }
+    }
+
+
     $userManager->delete($user_id);
     $message = '<p class="information">L\'utilisateur '. $userFamilyName . ' ' . $userFirstName .' a bien été supprimé.</p>';
 

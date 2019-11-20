@@ -14,18 +14,18 @@
                     <thead>
                         <tr>
                             <th>Titre</th>
-                            <th>Statut</th>
-                            <th>Date d'ajout</th>
-                            <th>Dernière modification</th>
+                            <th class="responsiveTable">Statut</th>
+                            <th >Date d'ajout</th>
+                            <th class="responsiveTable">Dernière modification</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Titre</th>
-                            <th>Statut</th>
-                            <th>Date d'ajout</th>
-                            <th>Dernière modification</th>
+                            <th class="responsiveTable">Statut</th>
+                            <th >Date d'ajout</th>
+                            <th class="responsiveTable">Dernière modification</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -34,14 +34,14 @@
                         foreach ($newsManager->getList($started, $numberPerPage) as $news)
                         {
                             echo '<tr><td>',
-                            $news->title(), '</td><td>',
+                            $news->title(),'<p class="responsiveStatus"><br/>',$news->status(),'</p>', '</td><td class="responsiveTable">',
                             $news->status(), '</td><td>',
-                            $news->dateCreated()->format('d/m/Y'),'</td><td>',
+                            $news->dateCreated()->format('d/m/Y'),'</td><td class="responsiveTable">',
                             ($news->dateCreated() == $news->dateModified() ? '-' : $news->dateModified()->format('d/m/Y')),'</td><td>
                             <div class="divBoutonModify">
                             <form action="',$base.'-',$pag.'-',$news->id(),'" method="post">
                             <input name="publish" class="boutonModify" type="submit" value="Publier"></form>
-                            | <a class="boutonModify linkModify" target="_blank" href="lire-',$news->id(), '">Aperçu</a>
+                            | <a class="boutonModify linkModify" target="_blank" href="lire-',$news->id(), '-0">Aperçu</a>
                             | <form action="',$base.'-',$pag.'-',$news->id(),'" method="post">
                             <input name="unpublish" class="boutonModify" type="submit" value="Brouillon"></form>
                             | <a class="boutonModify linkModify" href="modifierArticle-',$news->id(), '"> Modifier</a>

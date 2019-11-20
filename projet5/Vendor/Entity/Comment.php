@@ -5,12 +5,12 @@ use \MyFram\Entity;
 /**
    * Class represent a comment
 */
-class Comments extends Entity
+class Comment extends Entity
 {
-    protected   $users_id,
+    protected   $user_id,
                 $news_id,
                 $content,
-                $publish,
+                $status,
                 $dateCreated,
                 $dateModified;
 
@@ -25,14 +25,14 @@ class Comments extends Entity
      */
     public function isValid()
     {
-        return !(empty($this->title) || empty($this->content));
+        return !(empty($this->content));
     }
 
     // SETTERS //
     
-    public function setUsers_id($users_id)
+    public function setUser_id($user_id)
     {
-        $this->users_id = $users_id;
+        $this->user_id = $user_id;
     }
 
     public function setNews_id($news_id)
@@ -52,9 +52,9 @@ class Comments extends Entity
         }
     }
 
-    public function setPublish($publish)
+    public function setStatus($status)
     {
-        $this->publish = $publish;
+        $this->status = $status;
     }
 
 
@@ -70,9 +70,9 @@ class Comments extends Entity
 
     // GETTERS //
 
-    public function users_id()
+    public function user_id()
     {
-        return $this->users_id;
+        return $this->user_id;
     }
 
     public function news_id()
@@ -85,9 +85,9 @@ class Comments extends Entity
         return $this->content;
     }
 
-    public function publish()
+    public function status()
     {
-        return $this->publish;
+        return $this->status;
     }
 
     public function dateCreated()

@@ -27,8 +27,8 @@
             <span>Abonnés</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="#">Commentaires</a>
-            <a class="dropdown-item" href="listeAbonne-0-0">Liste abonnés</a>
+            <a class="dropdown-item" href="listeCommentaires-0-0">Commentaires</a>
+            <a class="dropdown-item" href="listeAbonnes-0-0">Liste abonnés</a>
           </div>
         </li>
         <li class="nav-item dropdown">

@@ -11,13 +11,19 @@ abstract class CommentManager extends Manager
      * @param $comments Comments The comment to add
      * @return void
      */
-    abstract protected function add(Comment $comments);
+    abstract protected function add(Comment $comment);
 
     /**
     * Method to tell the total number of comments
     * @return int
     */
     abstract public function count();
+
+    /**
+    * Method to tell the total number of comments
+    * @return int
+    */
+    abstract public function countTrash();
 
     /**
      * Method to delete a comments
@@ -27,6 +33,14 @@ abstract class CommentManager extends Manager
     abstract public function delete($id);
 
      /**
+     * Method return a list of asked comments which are published
+     * @param $start int The first comment to select
+     * @param $limit int The number of comment to select
+     * @return array The list of the comments, Each entrance is an instance of Comment.
+     */
+    abstract public function getListPublish($start = -1,$limit = -1);
+
+         /**
      * Method return a list of asked comments
      * @param $start int The first comment to select
      * @param $limit int The number of comment to select
@@ -49,7 +63,7 @@ abstract class CommentManager extends Manager
      * @see self::modify()
      * @return void
      */
-    abstract protected function save(Comment $comments);
+    abstract protected function save(Comment $comment);
     
     
 
@@ -58,7 +72,7 @@ abstract class CommentManager extends Manager
      * @param $comments comment the comment to modify
      * @return void
      */
-    abstract protected function modify(Comment $comments);
+    abstract protected function modify(Comment $comment);
 
 
     

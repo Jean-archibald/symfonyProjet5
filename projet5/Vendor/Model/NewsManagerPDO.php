@@ -52,7 +52,7 @@ class NewsManagerPDO extends NewsManager
      */
     public function getList($start = -1, $limit = -1)
     {
-        $sql = 'SELECT id, title, content, status, trash, dateCreated, dateModified 
+        $sql = 'SELECT id, user_id, title, content, status, trash, dateCreated, dateModified 
         FROM News
         WHERE trash = \'0\'
         ORDER BY dateCreated DESC';
@@ -117,6 +117,25 @@ class NewsManagerPDO extends NewsManager
 
         return $newsList;
     } 
+
+     /**
+     * @see NewsManager::getListByAutor())
+     */
+    public function getListByAutor($user_id)
+    {
+        $sql = 'SELECT id, user_id
+        FROM News
+        WHERE user_id = "'.$user_id.'"';
+
+        $request = $this->dao->query($sql);
+        $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\News');
+        
+        $newsList = $request->fetchAll();
+
+        $request->closeCursor();
+
+        return $newsList;
+    } 
       
 
     /**
@@ -124,7 +143,7 @@ class NewsManagerPDO extends NewsManager
      */
     public function getUnique($id)
     {
-        $request = $this->dao->prepare('SELECT id, title, content, status, trash, dateCreated, dateModified 
+        $request = $this->dao->prepare('SELECT id, user_id, title, content, status, trash, dateCreated, dateModified 
         FROM News WHERE id = :id');
         $request->bindValue(':id', (int) $id, \PDO::PARAM_INT);
         $request->execute();
@@ -176,5 +195,16 @@ class NewsManagerPDO extends NewsManager
     $request->execute();
     }
  
-    
+      /**
+     * @see NewsManager:newsExist()
+     */
+    public function newsExist($user_id)
+    {
+        $request = $this->dao->prepare('SELECT * FROM news WHERE user_id = ?');
+        $request->execute(array($user_id));
+        $newsExist = $request->rowCount();
+
+        return $newsExist;
+    }
+   
 }
