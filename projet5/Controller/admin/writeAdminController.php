@@ -3,7 +3,6 @@ $dao = \MyFram\PDOFactory::getMySqlConnexion();
 $newsManager = new \Model\NewsManagerPDO($dao);
 $userManager = new \Model\UserManagerPDO($dao);
 ob_start();
-
 $user_info = $userManager->getUserById($_SESSION['id']);
 $userFamilyName = $user_info['familyName'];
 $userFirstName = $user_info['firstName'];
@@ -15,7 +14,6 @@ if (isset($_POST['title']))
 {
     $news = new \Entity\News(
         [
-            'user_id'=>'Delafontaine - 3',
             'title' => $_POST['title'],
             'content' => $_POST['textarea'],
         ]
@@ -24,9 +22,9 @@ if (isset($_POST['title']))
 
     if($news->isValid())
     {
+        $news -> setUserId($_SESSION['id']);
         $newsManager->save($news);
         $message = '<p id="message" title="valide">L\'article a bien été ajouté.<p/>';
-        $news -> setUserId($_SESSION['id']);
     }
     else
     {   

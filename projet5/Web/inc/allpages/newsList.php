@@ -33,15 +33,17 @@
                         <?php
                         foreach ($newsManager->getList($started, $numberPerPage) as $news)
                         {
-                            $autor_info = $userManager->getUserById($news->user_id());
-                            $autorFamilyName = $autor_info['familyName'];
-                            $autorFirstName = $autor_info['firstName'];
+                            
+                            $autor_id = $news->user_id();
+                            $autor = $userManager->getUserById($autor_id);
+                            $autorFamilyName = $autor['familyName'];
+                            $autorFirstName = $autor['firstName'];
                             echo '<tr><td>',
                             $news->title(), '</td><td>',
                             $autorFamilyName,' ',$autorFirstName,'</td><td  class="responsiveTable">',
                             $news->dateCreated()->format('d/m/Y'),'</td><td  class="responsiveTable">',
                             ($news->dateCreated() == $news->dateModified() ? '-' : $news->dateModified()->format('d/m/Y')),'</td><td>
-                            <a class="boutonModify linkModify" target="_blank" href="lire-',$news->id(), '">Lire</a>
+                            <a class="boutonModify linkModify" target="_blank" href="lire-',$news->id(), '-0">Lire</a>
                             </td></tr>', "\n";
                         }
                         ?>

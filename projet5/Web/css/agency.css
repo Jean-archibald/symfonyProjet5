@@ -788,11 +788,45 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   border-color:#FF4500;
 }
 
+.comments
+{
+  text-align: center;
+  color:#FF4500;
+  margin:30px;
+  padding:30px;
+}
+
+.boutonSignal
+{
+  color:red !important;
+  background-color:white !important;
+  border: 0px;
+}
+
+.listComments
+{
+  text-align: center;
+  background-color: white;
+  margin:30px;
+  padding:30px;
+ 
+}
+
+.h2List
+{
+  font-size: 22px;
+}
+
 /*page home admin */
 
 .homeAdminContainer
 {
   display: flex;
+}
+
+.divColor
+{
+  background-color:#FF4500;
 }
 
 @media (max-width: 750px) {
@@ -809,12 +843,22 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   margin-top:10px;
   margin-bottom:10px;
 }
+
 .buttonHomeAdmin
 {
 margin: 0 auto;
-max-width:200px;
+width:33%;
 display: flex;
 flex-direction: column;
+padding:20px;
+}
+
+@media (max-width: 750px) {
+  .buttonHomeAdmin
+  {
+    width:100%;
+    margin-top:20px;
+  }
 }
 
 .buttonModifyHomeAdmin
@@ -832,5 +876,18 @@ flex-direction: column;
   .responsiveTable
   {
     display: none;
+  }
+}
+
+.responsiveStatus
+  {
+    display: none;
+  }
+
+@media (max-width: 750px) {
+  .responsiveStatus
+  {
+    display: inline;
+    color:red;
   }
 }

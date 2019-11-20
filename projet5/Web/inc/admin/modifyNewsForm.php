@@ -80,6 +80,17 @@ if (isset($_POST['delete']))
     $news = $newsManager->getUnique($id);
     $news_id = $news->id();
     $newsTitle = $news->title();
+
+    $commentsExist = $commentManager->commentsExist($news_id);
+    if($commentsExist >= 1)
+    {   
+        foreach ($commentManager->getListByComment($news_id) as $comment)
+            {
+                $comment_id = $comment->id();
+                $commentManager->delete($comment_id);
+            }
+    }
+
     $newsManager->delete($news_id);
     $message = '<p class="information">L\'article '. $newsTitle .' a bien été supprimé.</p>';
 

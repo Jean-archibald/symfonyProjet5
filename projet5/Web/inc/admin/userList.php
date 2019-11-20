@@ -13,21 +13,21 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
+                            <th class="responsiveTable">Nom</th>
+                            <th class="responsiveTable">Prénom</th>
                             <th>Email</th>
-                            <th>Statut</th>
-                            <th>Date Ajout</th>
+                            <th class="responsiveTable">Statut</th>
+                            <th class="responsiveTable">Date Ajout</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
+                            <th class="responsiveTable">Nom</th>
+                            <th class="responsiveTable">Prénom</th>
                             <th>Email</th>
-                            <th>Statut</th>
-                            <th>Date Ajout</th>
+                            <th class="responsiveTable">Statut</th>
+                            <th class="responsiveTable">Date Ajout</th>
                             <th>Action</th>
                             </tr>
                     </tfoot>
@@ -35,14 +35,14 @@
                         <?php
                         foreach ($userManager->getList($started, $numberPerPage) as $user)
                         {
-                            echo '<tr><td>',
-                            $user->familyName(), '</td><td>',
+                            echo '<tr><td class="responsiveTable">',
+                            $user->familyName(), '</td><td class="responsiveTable">',
                             $user->firstName(), '</td><td>',
-                            $user->email(), '</td><td>',
-                            $user->status(), '</td><td>',
+                            $user->email(),'<p class="responsiveStatus"><br/>',$user->status(),'</p>', '</td><td class="responsiveTable">',
+                            $user->status(), '</td><td class="responsiveTable">',
                             $user->date_created()->format('d/m/Y'),'</td><td>
                             <div class="divBoutonModify">
-                            <a class="boutonModify linkModify" href="modifierUtilisateur-',$user->id(), '">Modifier</a>
+                            <a class="boutonModify linkModify" href="abonne-',$user->id(), '">Modifier</a>
                             | <form action="',$base.'-',$pag.'-',$user->id(),'" method="post">
                             <input name="trash" class="boutonModify" type="submit" value="Corbeille"></form>
                             </div>

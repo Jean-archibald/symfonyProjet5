@@ -2,6 +2,7 @@
 $dao = \MyFram\PDOFactory::getMySqlConnexion();
 $userManager = new \Model\UserManagerPDO($dao);
 $newsManager = new \Model\NewsManagerPDO($dao);
+$commentManager = new \Model\CommentManagerPDO($dao);
 
 if ($direction == "newsTrash")
 {
@@ -23,12 +24,12 @@ elseif($direction == "user")
     $numberTotal = $userManager->count();
     $information = '<p class="information">Il y a '.$numberTotal.' abonné(s).</p>';
 }
-elseif($direction == "commentsTrash")
+elseif($direction == "commentTrash")
 {
     $numberTotal = $commentManager->countTrash();
     $information = '<p class="information">Il y a '.$numberTotal.' commentaire(s) dans la corbeille.</p>';
 }
-elseif($direction == "comments")
+elseif($direction == "comment")
 {
     $numberTotal = $commentManager->count();
     $information = '<p class="information">Il y a '.$numberTotal.' commentaire(s).</p>';

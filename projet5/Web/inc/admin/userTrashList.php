@@ -14,20 +14,20 @@
                 <thead>
                         <tr>
                             <th>Nom</th>
-                            <th>Prénom</th>
+                            <th class="responsiveTable">Prénom</th>
                             <th>Email</th>
-                            <th>Statut</th>
-                            <th>Date Ajout</th>
+                            <th class="responsiveTable">Statut</th>
+                            <th class="responsiveTable">Date Ajout</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Nom</th>
-                            <th>Prénom</th>
+                            <th class="responsiveTable">Prénom</th>
                             <th>Email</th>
-                            <th>Statut</th>
-                            <th>Date Ajout</th>
+                            <th class="responsiveTable">Statut</th>
+                            <th class="responsiveTable">Date Ajout</th>
                             <th>Action</th>
                             </tr>
                     </tfoot>
@@ -36,10 +36,10 @@
                         foreach ($userManager->getListTrash($started, $numberPerPage) as $user)
                         {
                             echo '<tr><td>',
-                            $user->familyName(), '</td><td>',
+                            $user->familyName(),'<p class="responsiveStatus"><br/>',$user->status(),'</p>', '</td><td class="responsiveTable">',
                             $user->firstName(), '</td><td>',
-                            $user->email(), '</td><td>',
-                            $user->status(), '</td><td>',
+                            $user->email(), '</td><td class="responsiveTable">',
+                            $user->status(), '</td><td class="responsiveTable">',
                             $user->date_created()->format('d/m/Y'),'</td><td>
                             <div class="divBoutonModify">
                             <form action="',$base.'-',$pag.'-',$user->id(),'" method="post">

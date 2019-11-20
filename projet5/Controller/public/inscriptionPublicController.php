@@ -42,38 +42,38 @@ if (isset($_POST['familyName']))
                             if($user->isValid())
                             {
                                 $userManager->save($user);
-                                $message = '<p class="information";>L\'utilisateur a bien été ajouté !<p/>';
+                                $message = '<p class="information">L\'utilisateur a bien été ajouté !<p/>';
                                 header("Location:connexion");
                             }
                         }
                         else
                         {
-                            $message = '<p class="information";>L\'adresse mail est déjà utilisé dans un autre compte !<p/>';
+                            $message = '<p class="information">L\'adresse mail est déjà utilisé dans un autre compte !<p/>';
                         }
                     }
                     else
                     {
-                        $message = '<p class="information";>L\'adresse mail n\'est pas valide !<p/>';
+                        $message = '<p class="information">L\'adresse mail n\'est pas valide !<p/>';
                     }
                 }
                 else
                 {
-                    $message = '<p class="information";>Les emails ne correspondent pas !<p/>';
+                    $message = '<p class="information">Les emails ne correspondent pas !<p/>';
                 }
             }
             else
             {
-                $message = '<p class"information";>Les mots de passe ne correspondent pas !<p/>';
+                $message = '<p class"information">Les mots de passe ne correspondent pas !<p/>';
             }
         }
         else
         {
-            $message = '<p class="information";>Le prénom ne doit pas dépasser 255 caractères !<p/>';
+            $message = '<p class="information">Le prénom ne doit pas dépasser 255 caractères !<p/>';
         }
     }
     else
     {
-        $message = '<p class="information";>Le nom de famille ne doit pas dépasser 255 caractères !<p/>';
+        $message = '<p class="information">Le nom de famille ne doit pas dépasser 255 caractères !<p/>';
     }
 }
 ?>

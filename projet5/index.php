@@ -60,9 +60,12 @@ elseif(preg_match('#articles-([0-9]+)#', $url , $params))
 }
 
 //lire article
-elseif(preg_match('#lire-([0-9]+)#', $url , $params))
+elseif(preg_match('#lire-([0-9]+)-([0-9]+)#', $url , $params))
 {
+    $cutUrl = explode("-", $url);
+    $base = $cutUrl[0];
     $id = $params[1];
+    $comment = $params[2];
     require __DIR__.'/Controller/public/uniqueNewsPublicController.php';
 }
 
@@ -117,7 +120,7 @@ elseif(preg_match('#listeArticles-([0-9]+)-([0-9]+)#', $url , $params))
 }
 //Gestion Abonné
 //liste abonné
-elseif(preg_match('#listeAbonne-([0-9]+)-([0-9]+)#', $url , $params))
+elseif(preg_match('#listeAbonnes-([0-9]+)-([0-9]+)#', $url , $params))
 {
     $title = 'Liste des abonnés';
     $descriptionMeta = 'La liste des abonnés';
@@ -130,6 +133,33 @@ elseif(preg_match('#listeAbonne-([0-9]+)-([0-9]+)#', $url , $params))
     $road = 'list';
     require __DIR__.'/Controller/admin/validAdminController.php';
 }
+
+//modifier un abonné
+elseif(preg_match('#abonne-([0-9]+)#', $url , $params))
+{
+    $title = 'Modifier un abonné';
+    $descriptionMeta = 'Modification abonné';
+    $id = $params[1];
+    $road = 'modifyUser';
+    require __DIR__.'/Controller/admin/validAdminController.php';
+}
+
+//Gestion Commentaire
+//liste commentaires
+elseif(preg_match('#listeCommentaires-([0-9]+)-([0-9]+)#', $url , $params))
+{
+    $title = 'Liste des commentaire';
+    $descriptionMeta = 'La liste des commentaire';
+    $cutUrl = explode("-", $url);
+    $base = $cutUrl[0];
+    $pag = $params[1];
+    $id = $params[2];
+    $direction = "comment";
+    $modifyFormDirection = "Comment";
+    $road = 'list';
+    require __DIR__.'/Controller/admin/validAdminController.php';
+}
+
 //Gestion Corbeille
 //liste abonné dans corbeille
 elseif(preg_match('#corbeilleAbonnes-([0-9]+)-([0-9]+)#', $url , $params))

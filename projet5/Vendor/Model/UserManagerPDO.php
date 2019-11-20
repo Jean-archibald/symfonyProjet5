@@ -48,8 +48,6 @@ class UserManagerPDO extends UserManager
         return $userExist;
     }
 
-
-
     /**
      * @see UserManager::count()
      */
