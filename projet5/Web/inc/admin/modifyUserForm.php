@@ -51,8 +51,17 @@ if (isset($_POST['delete']))
     if($newsExist >= 1)
     {   
         foreach ($newsManager->getListByAutor($user_id) as $news)
-            {
+            {   
                 $news_id = $news->id();
+                $commentsExist = $commentManager->commentsExist($news_id);
+                if($commentsExist >= 1)
+                {   
+                    foreach ($commentManager->getListByComment($news_id) as $comment)
+                        {
+                            $comment_id = $comment->id();
+                            $commentManager->delete($comment_id);
+                        }
+                }
                 $newsManager->delete($news_id);
             }
     }
@@ -61,7 +70,7 @@ if (isset($_POST['delete']))
     if($commentsExistOfUser >= 1)
     {   
         foreach ($commentManager->getListByCommentOfUser($user_id) as $comment)
-            {
+            {   
                 $comment_id = $comment->id();
                 $commentManager->delete($comment_id);
             }
