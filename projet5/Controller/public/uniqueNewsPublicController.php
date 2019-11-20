@@ -33,7 +33,7 @@ if (isset($_POST['comment']))
         $comment -> setUser_Id($_SESSION['id']);
         $comment -> setNews_Id($newsId);
         $commentManager->save($comment);
-        $message = '<p id="message" title="valide">Le commentaire a bien été envoyé.<p/>';
+        $message = 'Le commentaire a bien été envoyé.';
     }
     else
     {   
@@ -59,10 +59,18 @@ if (isset($_POST['signal']))
 
 ?>
 <body>
-
+<p class="information">
+    <?php
+    if (isset($message))
+    {
+        echo '<p class="information">'.$message.'</p>'; '<br />';
+    }
+    ?>
+<p>
 <div class="article">
-
 <?php
+
+
 echo    '<p>Article publié le ', $news->dateCreated()->format('d/m/Y'),'</p>',
         '<p>Auteur : ',$autorFamilyName,' ', $autorFirstName,'</p>', 
         '<h2 class="titleNews">',$news->title(),'</h2>',
