@@ -45,6 +45,14 @@
         <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="sessiondestroy">Deconnexion</a>
           </li>
+          <?php if (isset($_SESSION['status']))
+          { ?>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="account-<?=$_SESSION['id']?>">Mon Compte</a>
+          </li>
+          <?php
+          }
+            ?>
         </ul>
       </div>
     </div>

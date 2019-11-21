@@ -23,6 +23,48 @@ class NewsManagerPDO extends NewsManager
         $request->execute();
     }
 
+     /**
+    * @see NewsManager::save()
+    */
+    public function save (News $news)
+    {
+        if ($news->isValid())
+        {
+            $news->isNew() ? $this->add($news) : $this->modify($news);
+        }
+        else
+        {
+            throw new RuntimeException('La News doit être valide pour être enregistrée');
+        }
+    }
+
+    /**
+    * @see NewsManager::modify()
+    */
+    protected function modify(News $news)
+    {
+    $request = $this->dao->prepare('UPDATE News 
+    SET  user_id = :user_id, title = :title, content = :content, status = :status, trash = :trash, dateModified = NOW()
+    WHERE id = :id');
+   
+    $request->bindValue(':user_id', $news->user_id());    
+    $request->bindValue(':title', $news->title());
+    $request->bindValue(':content', $news->content());
+    $request->bindValue(':status', $news->status());
+    $request->bindValue(':trash', $news->trash());
+    $request->bindValue(':id', $news->id(), \PDO::PARAM_INT);
+
+    $request->execute();
+    }
+
+     /**
+     * @see NewsManager::delete()
+     */
+    public function delete($id)
+    {
+        $this->dao->exec('DELETE FROM News WHERE id = '.(int) $id);
+    }
+
     /**
      * @see NewsManager::count()
      */
@@ -39,13 +81,18 @@ class NewsManagerPDO extends NewsManager
         return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'1\' ')->fetchColumn();
     }
 
-    /**
-     * @see NewsManager::delete()
+      /**
+     * @see NewsManager:newsExist()
      */
-    public function delete($id)
+    public function newsExist($user_id)
     {
-        $this->dao->exec('DELETE FROM News WHERE id = '.(int) $id);
+        $request = $this->dao->prepare('SELECT * FROM news WHERE user_id = ?');
+        $request->execute(array($user_id));
+        $newsExist = $request->rowCount();
+
+        return $newsExist;
     }
+
 
     /**
      * @see NewsManager::getList()
@@ -157,54 +204,4 @@ class NewsManagerPDO extends NewsManager
    
         return $news;
     }
-
-    
-    
-    
-    /**
-    * @see NewsManager::save()
-    */
-    public function save (News $news)
-    {
-        if ($news->isValid())
-        {
-            $news->isNew() ? $this->add($news) : $this->modify($news);
-        }
-        else
-        {
-            throw new RuntimeException('La News doit être valide pour être enregistrée');
-        }
-    }
-
-    /**
-    * @see NewsManager::modify()
-    */
-    protected function modify(News $news)
-    {
-    $request = $this->dao->prepare('UPDATE News 
-    SET  user_id = :user_id, title = :title, content = :content, status = :status, trash = :trash, dateModified = NOW()
-    WHERE id = :id');
-   
-    $request->bindValue(':user_id', $news->user_id());    
-    $request->bindValue(':title', $news->title());
-    $request->bindValue(':content', $news->content());
-    $request->bindValue(':status', $news->status());
-    $request->bindValue(':trash', $news->trash());
-    $request->bindValue(':id', $news->id(), \PDO::PARAM_INT);
-
-    $request->execute();
-    }
- 
-      /**
-     * @see NewsManager:newsExist()
-     */
-    public function newsExist($user_id)
-    {
-        $request = $this->dao->prepare('SELECT * FROM news WHERE user_id = ?');
-        $request->execute(array($user_id));
-        $newsExist = $request->rowCount();
-
-        return $newsExist;
-    }
-   
 }

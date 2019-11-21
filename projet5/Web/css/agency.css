@@ -753,6 +753,7 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 }
 .boutonModify:hover
 {
+  color: #FF4500 !important;
   text-decoration: underline;
   font-weight: bold;
 }
@@ -871,6 +872,10 @@ padding:20px;
   color: #FF4500 !important;
 }
 
+.notification
+{
+  text-align: center;
+}
 /*liste article public */
 @media (max-width: 750px) {
   .responsiveTable

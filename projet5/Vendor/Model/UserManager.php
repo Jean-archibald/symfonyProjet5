@@ -14,10 +14,39 @@ abstract class UserManager extends Manager
     abstract protected function add(User $user);
 
     /**
+     * Method to save a User
+     * @param $user User The user to save
+     * @see self::add()
+     * @see self::modify()
+     * @return void
+     */
+    abstract protected function save(User $user);
+
+        /**
+     * Method to modify a user
+     * @param $user user the user to modify
+     * @return void
+     */
+    abstract protected function modify(User $user);
+
+    /**
+     * Method to delete a user
+     * @param $id int Identification of the user to delete
+     * @return void
+     */
+    abstract public function delete($id);
+
+    /**
     * Method to tell the total number of user
     * @return int
     */
     abstract public function count();
+
+     /**
+    * Method to tell the total number of user in Trash
+    * @return int
+    */
+    abstract public function countTrash();
 
     /**
     * Method to tell if the mail already exist
@@ -31,18 +60,6 @@ abstract class UserManager extends Manager
     */
     abstract public function userExist($email,$password);
 
-    /**
-    * Method to tell the total number of user in Trash
-    * @return int
-    */
-    abstract public function countTrash();
-
-    /**
-     * Method to delete a user
-     * @param $id int Identification of the user to delete
-     * @return void
-     */
-    abstract public function delete($id);
 
     /**
     * Method to get a user by his Email
@@ -55,23 +72,6 @@ abstract class UserManager extends Manager
     * @return bool
     */
     abstract public function getUserById($id);
-
-
-    /**
-     * Method to save a User
-     * @param $user User The user to save
-     * @see self::add()
-     * @see self::modify()
-     * @return void
-     */
-    abstract protected function save(User $user);
-
-    /**
-     * Method to modify a user
-     * @param $user user the user to modify
-     * @return void
-     */
-    abstract protected function modify(User $user);
 
     /**
      * Method return a list of all users

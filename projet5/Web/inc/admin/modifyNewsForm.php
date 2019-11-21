@@ -81,10 +81,10 @@ if (isset($_POST['delete']))
     $news_id = $news->id();
     $newsTitle = $news->title();
 
-    $commentsExist = $commentManager->commentsExist($news_id);
+    $commentsExist = $commentManager->commentsExistInNews($news_id);
     if($commentsExist >= 1)
     {   
-        foreach ($commentManager->getListByComment($news_id) as $comment)
+        foreach ($commentManager->getListOfCommentByNews($news_id) as $comment)
             {
                 $comment_id = $comment->id();
                 $commentManager->delete($comment_id);
