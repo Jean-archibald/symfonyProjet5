@@ -90,3 +90,50 @@ if (isset($_POST['password']))
     }
     
 }
+
+if (isset($_POST['deleteSure']))
+{
+    preg_match('#account-([0-9]+)#', $url , $params);
+    $cutUrl = explode("-", $url);
+    $id = $params[1];
+    $user = $userManager->getUserById($id);
+    $userFamilyName = $user->familyName();
+    $userFirstName = $user->firstName();
+    $user_id = $user->id();
+
+    $newsExist = $newsManager->newsExist($user_id);
+    if($newsExist >= 1)
+    {   
+        foreach ($newsManager->getListByAutor($user_id) as $news)
+            {   
+                $news_id = $news->id();
+                $commentsExist = $commentManager->commentsExistInNews($news_id);
+                if($commentsExist >= 1)
+                {   
+                    foreach ($commentManager->getListOfCommentByNews($news_id) as $comment)
+                        {
+                            $comment_id = $comment->id();
+                            $commentManager->delete($comment_id);
+                        }
+                }
+                $newsManager->delete($news_id);
+            }
+    }
+    
+    $commentsExistOfUser = $commentManager->commentsExistOfUser($user_id);
+    if($commentsExistOfUser >= 1)
+    {   
+        foreach ($commentManager->getListOfCommentByUser($user_id) as $comment)
+            {   
+                $comment_id = $comment->id();
+                $commentManager->delete($comment_id);
+            }
+    }
+
+
+    $userManager->delete($user_id);
+    $_SESSION = array();
+    session_destroy();
+    header("Location:./");
+
+}

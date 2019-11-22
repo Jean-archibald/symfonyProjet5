@@ -73,6 +73,14 @@ class NewsManagerPDO extends NewsManager
         return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'0\' ')->fetchColumn();
     }
 
+    /**
+     * @see NewsManager::count()
+     */
+    public function countPublish()
+    {
+        return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'0\' AND status = \'publié\' ')->fetchColumn();
+    }
+
      /**
      * @see NewsManager::countTrash()
      */
@@ -128,6 +136,42 @@ class NewsManagerPDO extends NewsManager
 
         return $newsList;
     } 
+
+    /**
+     * @see NewsManager::getListPublish()
+     */
+    public function getListPublish($start = -1, $limit = -1)
+    {
+        $sql = 'SELECT id, user_id, title, content, status, trash, dateCreated, dateModified 
+        FROM News
+        WHERE trash = \'0\'
+        AND status = \'publié\'
+        ORDER BY dateCreated DESC';
+
+        //Check if the given param are int
+        if ($start != -1 || $limit != -1)
+        {
+            $sql .= ' LIMIT '.(int) $limit.' OFFSET '.(int) $start;
+        }
+
+        $request = $this->dao->query($sql);
+        $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\News');
+        
+        $newsList = $request->fetchAll();
+        
+
+        // Use foreach to give instance of DateTime as created date and modified date.
+        foreach ($newsList as $news)
+        {
+            
+            $news->setDateCreated(new \DateTime($news->dateCreated()));
+            $news->setDateModified(new \DateTime($news->dateModified()));
+        }
+
+        $request->closeCursor();
+
+        return $newsList;
+    }
 
 
     /**

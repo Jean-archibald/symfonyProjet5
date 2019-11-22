@@ -31,7 +31,7 @@
                     </tfoot>
                     <tbody>
                         <?php
-                        foreach ($newsManager->getList($started, $numberPerPage) as $news)
+                        foreach ($newsManager->getListPublish($started, $numberPerPage) as $news)
                         {
                             
                             $autor_id = $news->user_id();

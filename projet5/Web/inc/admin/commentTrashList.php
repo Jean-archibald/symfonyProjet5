@@ -5,7 +5,8 @@
          echo $message, '<br />';
      }
  ?>
-</p><!-- News list -->
+</p>
+
 <div class="card mb-3">
     <div class="card-header"><i class="fas fa-table"></i>Liste des abonnés dans la corbeille</div>
         <div class="card-body">

@@ -122,11 +122,11 @@ if (isset($_POST['familyName']))
                     </div>
                 </div>
                 <div class="radio">
-                    <input type="radio" name="status" id="status" value="administrateur"/>
+                    <input type="radio" name="status" id="status" value="administrateur" <?php if (isset($userToModify) && $userToModify->status() == 'administrateur') echo 'checked';?>/>
                     <label for="administateur">administateur</label>
                 </div>
                 <div class="radio">
-                    <input type="radio" name="status" id="status" value="utilisateur"/>
+                    <input type="radio" name="status" id="status" value="utilisateur" <?php if (isset($userToModify) && $userToModify->status() == 'utilisateur') echo 'checked';?>/>
                     <label for="utilisateur">utilisateur</label>
                 </div>
                 <input type="submit" value="Modifier les infos de l'abonné(e)" name="modifier" class="btn btn-primary btn-block"/>

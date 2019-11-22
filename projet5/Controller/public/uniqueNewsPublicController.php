@@ -91,8 +91,14 @@ echo    '<p>Article publié le ', $news->dateCreated()->format('d/m/Y'),'</p>',
 <?php
     include('Web/inc/allpages/pagination1.php'); 
 ?>
-<h2 class="h2List">Liste des commentaires</h2>
 
+<h2 class="h2List">Liste des commentaires</h2>
+<?php
+        if (isset($message))
+        {
+            echo '<p class="notificationGreen">',$message, '</p><br />';
+        }
+    ?>
 <?php
 
 if (isset($infoNumberComments))

@@ -22,24 +22,27 @@ ob_start();
     </div>
 </div>
 <div class="notification">
-<h2>Notifications</h2>
+<h2>Notification</h2>
 <?php
 $commentManager = new \Model\CommentManagerPDO($dao);
 $commentsToVerify = $commentManager->commentsExistToVerify();
 if($commentsToVerify >= 1)
+{
+    if ( isset($_SESSION['status']) && $_SESSION['status'] == "administrateur")
     {
-        if ( isset($_SESSION['status']) && $_SESSION['status'] == "administrateur")
-        {
-        $numberCommentsToVerify = $commentManager->countVerify();
-        ?>
-        <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="listeCommentaires-0-0"><?=$numberCommentsToVerify?> commentaire(s) à vérifier
-        </a>
-        </li>
-        <?php
-        }
-    }
+    $numberCommentsToVerify = $commentManager->countVerify();
     ?>
+    <a class="nav-link js-scroll-trigger" href="listeCommentaires-0-0"><?=$numberCommentsToVerify?> commentaire(s) à vérifier
+    </a>
+    <?php
+    }
+}
+else
+{
+    echo '<p>Il n\'y a pas de commentaire à vérifier.</p>';
+}
+
+?>
 </div>
 <?php
 $content = ob_get_clean();
