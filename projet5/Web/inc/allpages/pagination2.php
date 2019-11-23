@@ -1,36 +1,39 @@
 <div class="divPag">
   <?php
-  if(preg_match('#lire-([0-9]+)-([0-9]+)-([0-9]+)#', $url , $params))
+  if($numberTotal>5)
   {
-    $cutUrl = explode("-", $url);
-    $base = $cutUrl[0];
-    $pag = $params[1];
-    $id = $params[2];
-    $comment = $params[3];
-   
-    for($i=1;$i<=$totalPages ;$i++)
+    if(preg_match('#lire-([0-9]+)-([0-9]+)-([0-9]+)#', $url , $params))
     {
-      if($i == $pageNow)
+      $cutUrl = explode("-", $url);
+      $base = $cutUrl[0];
+      $pag = $params[1];
+      $id = $params[2];
+      $comment = $params[3];
+    
+      for($i=1;$i<=$totalPages ;$i++)
       {
-        echo $i.' ';
-      }
-      else
-      {
-        echo '<a class="pagButton" href="'.$base.'-'.$i.'-'.$id.'-0'.'">'.$i.'</a>';
+        if($i == $pageNow)
+        {
+          echo $i.' ';
+        }
+        else
+        {
+          echo '<a class="pagButton" href="'.$base.'-'.$i.'-'.$id.'-0'.'">'.$i.'</a>';
+        }
       }
     }
-  }
-  else
-  {
-    for($i=1;$i<=$totalPages ;$i++)
+    else
     {
-      if($i == $pageNow)
+      for($i=1;$i<=$totalPages ;$i++)
       {
-        echo $i.' ';
-      }
-      else
-      {
-        echo '<a class="pagButton" href="'.$base.'-'.$i.'-0'.'">'.$i.'</a>';
+        if($i == $pageNow)
+        {
+          echo $i.' ';
+        }
+        else
+        {
+          echo '<a class="pagButton" href="'.$base.'-'.$i.'-0'.'">'.$i.'</a>';
+        }
       }
     }
   }

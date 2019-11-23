@@ -78,7 +78,12 @@ class CommentManagerPDO extends CommentManager
      */
     public function countCommentsInNewsToPublish($news_id)
     {
-        return $this->dao->query('SELECT COUNT(*) FROM comment WHERE status = "publié" AND news_id = "'.$news_id.'"' )->fetchColumn();
+        $request = $this->dao->prepare('SELECT COUNT(*) FROM comment WHERE status = "publié" AND news_id = ?');
+        $request->execute(array($news_id));
+        $count = $request->fetchColumn();
+        $request->closeCursor();
+        return $count;
+
     }
 
     /**
@@ -258,7 +263,8 @@ class CommentManagerPDO extends CommentManager
     {
         $sql = 'SELECT id, user_id, news_id, content, status, trash, dateCreated, dateModified
         FROM comment
-        WHERE status = "publié" AND news_id = "'.$news_id.'"';
+        WHERE status = "publié" AND news_id = ?
+        ORDER BY id DESC';
 
        //Check if the given param are int
        if ($start != -1 || $limit != -1)
@@ -266,8 +272,10 @@ class CommentManagerPDO extends CommentManager
            $sql .= ' LIMIT '.(int) $limit.' OFFSET '.(int) $start;
        }
 
-       $request = $this->dao->query($sql);
+       $request = $this->dao->prepare($sql);
+       $request->execute(array($news_id));
        $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
+       
        
        $commentsList = $request->fetchAll();
        
@@ -293,9 +301,11 @@ class CommentManagerPDO extends CommentManager
     {
         $sql = 'SELECT id, news_id
         FROM comment
-        WHERE news_id = "'.$news_id.'"'  ;
+        WHERE news_id = ?
+        ORDER BY id DESC'  ;
 
-        $request = $this->dao->query($sql);
+        $request = $this->dao->prepare($sql);
+        $request->execute(array($news_id));
         $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
         
         $commentList = $request->fetchAll();
@@ -313,9 +323,11 @@ class CommentManagerPDO extends CommentManager
     {
         $sql = 'SELECT id, user_id
         FROM comment
-        WHERE user_id = "'.$user_id.'"'  ;
+        WHERE user_id = ?
+        ORDER BY id DESC'  ;
 
-        $request = $this->dao->query($sql);
+        $request = $this->dao->prepare($sql);
+        $request->execute(array($user_id));
         $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
         
         $commentList = $request->fetchAll();

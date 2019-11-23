@@ -69,7 +69,7 @@ if (isset($_POST['familyName']))
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="text" name="firstName" id="firstName" placeholder="Votre prénom" class="form-control" autofocus="autofocus" required="required" />
+                                    <input type="text" name="firstName" id="firstName" placeholder="Votre prénom" class="form-control"  required="required" />
                                 </div>
                             </div>
                             <div class="col-md-6">
