@@ -3,13 +3,12 @@ $dao = \MyFram\PDOFactory::getMySqlConnexion();
 $newsManager = new \Model\NewsManagerPDO($dao);
 $userManager = new \Model\UserManagerPDO($dao);
 $commentManager = new \Model\CommentManagerPDO($dao);
-include('Web/inc/allpages/modifyCommentPublic.php'); 
 $news = $newsManager->getUnique((int) $id);
 $newsTitle = $news->title();
 $newsId = $news->id();
 $title = 'Article : ' . $newsTitle;
 $descriptionMeta = $newsTitle;
-
+include('Web/inc/allpages/modifyCommentPublic.php'); 
 $autor_id = $news->user_id();
 $autor = $userManager->getUserById($autor_id);
 $autorFamilyName = $autor['familyName'];

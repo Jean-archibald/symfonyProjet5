@@ -10,7 +10,7 @@ class NewsManagerPDO extends NewsManager
      */
     protected function add(News $news)
     {
-        $request = $this->dao->prepare('INSERT INTO News(user_id, title, content, status, trash, dateCreated, dateModified) 
+        $request = $this->dao->prepare('INSERT INTO news(user_id, title, content, status, trash, dateCreated, dateModified) 
         VALUES(:user_id, :title, :content, :status, :trash, NOW(), NOW())');
 
         $request->bindValue(':user_id', $news->user_id());
@@ -43,7 +43,7 @@ class NewsManagerPDO extends NewsManager
     */
     protected function modify(News $news)
     {
-    $request = $this->dao->prepare('UPDATE News 
+    $request = $this->dao->prepare('UPDATE news 
     SET  user_id = :user_id, title = :title, content = :content, status = :status, trash = :trash, dateModified = NOW()
     WHERE id = :id');
    
@@ -62,7 +62,7 @@ class NewsManagerPDO extends NewsManager
      */
     public function delete($id)
     {
-        $this->dao->exec('DELETE FROM News WHERE id = '.(int) $id);
+        $this->dao->exec('DELETE FROM news WHERE id = '.(int) $id);
     }
 
     /**
@@ -70,7 +70,7 @@ class NewsManagerPDO extends NewsManager
      */
     public function count()
     {
-        return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'0\' ')->fetchColumn();
+        return $this->dao->query('SELECT COUNT(*) FROM news WHERE trash = \'0\' ')->fetchColumn();
     }
 
     /**
@@ -78,7 +78,7 @@ class NewsManagerPDO extends NewsManager
      */
     public function countPublish()
     {
-        return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'0\' AND status = \'publié\' ')->fetchColumn();
+        return $this->dao->query('SELECT COUNT(*) FROM news WHERE trash = \'0\' AND status = \'publié\' ')->fetchColumn();
     }
 
      /**
@@ -86,7 +86,7 @@ class NewsManagerPDO extends NewsManager
      */
     public function countTrash()
     {
-        return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'1\' ')->fetchColumn();
+        return $this->dao->query('SELECT COUNT(*) FROM news WHERE trash = \'1\' ')->fetchColumn();
     }
 
       /**
@@ -108,7 +108,7 @@ class NewsManagerPDO extends NewsManager
     public function getList($start = -1, $limit = -1)
     {
         $sql = 'SELECT id, user_id, title, content, status, trash, dateCreated, dateModified 
-        FROM News
+        FROM news
         WHERE trash = \'0\'
         ORDER BY dateCreated DESC';
 
@@ -143,7 +143,7 @@ class NewsManagerPDO extends NewsManager
     public function getListPublish($start = -1, $limit = -1)
     {
         $sql = 'SELECT id, user_id, title, content, status, trash, dateCreated, dateModified 
-        FROM News
+        FROM news
         WHERE trash = \'0\'
         AND status = \'publié\'
         ORDER BY dateCreated DESC';
@@ -180,7 +180,7 @@ class NewsManagerPDO extends NewsManager
     public function getListTrash($start = -1, $limit = -1)
     {
         $sql = 'SELECT id, title, content, status, trash, dateCreated, dateModified 
-        FROM News
+        FROM news
         WHERE trash = \'1\'
         ORDER BY dateCreated DESC';
 
@@ -215,7 +215,7 @@ class NewsManagerPDO extends NewsManager
     public function getListByAutor($user_id)
     {
         $sql = 'SELECT id, user_id
-        FROM News
+        FROM news
         WHERE user_id = ?';
 
         $request = $this->dao->prepare($sql);
@@ -236,7 +236,7 @@ class NewsManagerPDO extends NewsManager
     public function getUnique($id)
     {
         $request = $this->dao->prepare('SELECT id, user_id, title, content, status, trash, dateCreated, dateModified 
-        FROM News WHERE id = :id');
+        FROM news WHERE id = :id');
         $request->bindValue(':id', (int) $id, \PDO::PARAM_INT);
         $request->execute();
 
