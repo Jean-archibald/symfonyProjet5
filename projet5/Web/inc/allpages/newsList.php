@@ -31,7 +31,7 @@
                     </tfoot>
                     <tbody>
                         <?php
-                        foreach ($newsManager->getList($started, $numberPerPage) as $news)
+                        foreach ($newsManager->getListPublish($started, $numberPerPage) as $news)
                         {
                             
                             $autor_id = $news->user_id();
@@ -43,7 +43,7 @@
                             $autorFamilyName,' ',$autorFirstName,'</td><td  class="responsiveTable">',
                             $news->dateCreated()->format('d/m/Y'),'</td><td  class="responsiveTable">',
                             ($news->dateCreated() == $news->dateModified() ? '-' : $news->dateModified()->format('d/m/Y')),'</td><td>
-                            <a class="boutonModify linkModify" target="_blank" href="lire-',$news->id(), '-0">Lire</a>
+                            <a class="boutonModify linkModify" target="_blank" href="lire-0-',$news->id(), '-0">Lire</a>
                             </td></tr>', "\n";
                         }
                         ?>

@@ -3,8 +3,8 @@ $dao = \MyFram\PDOFactory::getMySqlConnexion();
 $userManager = new \Model\UserManagerPDO($dao);
 $newsManager = new \Model\NewsManagerPDO($dao);
 
-$numberTotal = $newsManager->count();
-$information = '<p class="information">Il y a '.$numberTotal.' article(s).</p>';
+$numberTotal = $newsManager->countPublish();
+$information = '<p class="information">Il y a '.$numberTotal.' article(s) publié(s).</p>';
 ob_start();
 ?>
 
@@ -16,7 +16,10 @@ ob_start();
 
 <!-- systeme to show trash list -->
 <?php
+if($numberTotal >= 1)
+{
     include('Web/inc/allpages/newsList.php'); 
+}
 ?>
 
 <!-- systeme pagination bottom -->

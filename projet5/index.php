@@ -60,12 +60,13 @@ elseif(preg_match('#articles-([0-9]+)#', $url , $params))
 }
 
 //lire article
-elseif(preg_match('#lire-([0-9]+)-([0-9]+)#', $url , $params))
+elseif(preg_match('#lire-([0-9]+)-([0-9]+)-([0-9]+)#', $url , $params))
 {
     $cutUrl = explode("-", $url);
     $base = $cutUrl[0];
-    $id = $params[1];
-    $comment = $params[2];
+    $pag = $params[1];
+    $id = $params[2];
+    $comment = $params[3];
     require __DIR__.'/Controller/public/uniqueNewsPublicController.php';
 }
 
@@ -74,7 +75,20 @@ elseif(preg_match('#error404#', $url , $params))
 {
     $title = 'Blog Delafontaine / Erreur 404';
     $descriptionMeta = 'Accès interdit';
-    require __DIR__.'/Controller/public/errorPublicController.php';
+    require __DIR__.'/Controller/public/errorAccessPublicController.php';
+}
+
+//account
+elseif(preg_match('#account-([0-9]+)#', $url , $params))
+{
+    $title = 'Mon compte';
+    $descriptionMeta = 'Mon compte';
+    $cutUrl = explode("-", $url);
+    $base = $cutUrl[0];
+    $id = $params[1];
+    $road = "account";
+    require __DIR__.'/Controller/public/validAccountPublicController.php';
+
 }
 
 //PARTIE ADMIN
@@ -202,4 +216,12 @@ elseif(preg_match('#corbeilleArticles-([0-9]+)-([0-9]+)#', $url , $params))
     $modifyFormDirection = "News";
     $road = 'list';
     require __DIR__.'/Controller/admin/validAdminController.php';
+}
+
+//PAGE 404 Erreur
+else
+{
+    $title = 'Blog Delafontaine / Erreur 404';
+    $descriptionMeta = 'Erreur 404 : La page n\'existe pas';
+    require __DIR__.'/Controller/public/error404PublicController.php';
 }

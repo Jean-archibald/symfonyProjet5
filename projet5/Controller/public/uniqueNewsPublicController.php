@@ -15,7 +15,18 @@ $autor = $userManager->getUserById($autor_id);
 $autorFamilyName = $autor['familyName'];
 $autorFirstName = $autor['firstName'];
 
+$commentsExistInNewsToPublish = $commentManager->commentsExistInNewsToPublish($newsId);
+if($commentsExistInNewsToPublish >= 1)
+{
 
+    $numberTotal = $commentManager->countCommentsInNewsToPublish($newsId);
+    $infoNumberComments = '<p class="information">Il y a '.$numberTotal.' commentaire(s) publié(s).</p>';
+}
+else
+{
+    $numberTotal = 0;
+    $infoNumberComments = '<p class="information">Il n\'existe pas encore de commentaire.</p>';
+}
 
 ob_start();
 
@@ -33,7 +44,7 @@ if (isset($_POST['comment']))
         $comment -> setUser_Id($_SESSION['id']);
         $comment -> setNews_Id($newsId);
         $commentManager->save($comment);
-        $message = '<p id="message" title="valide">Le commentaire a bien été envoyé.<p/>';
+        $message = 'Le commentaire a bien été envoyé.';
     }
     else
     {   
@@ -41,28 +52,31 @@ if (isset($_POST['comment']))
     }
 }
 
-if (isset($_POST['signal']))
+if (isset($_POST['signal']) && preg_match('#lire-([0-9]+)-([0-9]+)-([0-9]+)#', $url , $params))
 {
-
-    preg_match('#lire-([0-9]+)-([0-9]+)#', $url , $params);
     $cutUrl = explode("-", $url);
+    $base = $cutUrl[0];
+    $pag = $params[1];
     $id = $params[2];
-    $comment = $commentManager->getUnique($id);
-    $comment->setStatus('brouillon');
+    $comment = $params[3];
+    $commentToSignal = $commentManager->getUnique($comment);
+    $commentToSignal->setStatus('brouillon');
 
-    if($comment->isValid())
+    if($commentToSignal->isValid())
     {
-        $commentManager->save($comment);
+        $commentManager->save($commentToSignal);
         $message = '<p class="information">Le commentaire a bien été signalé.</p>';
     }
 }
 
 ?>
+
 <body>
 
 <div class="article">
-
 <?php
+
+
 echo    '<p>Article publié le ', $news->dateCreated()->format('d/m/Y'),'</p>',
         '<p>Auteur : ',$autorFamilyName,' ', $autorFirstName,'</p>', 
         '<h2 class="titleNews">',$news->title(),'</h2>',
@@ -72,24 +86,41 @@ echo    '<p>Article publié le ', $news->dateCreated()->format('d/m/Y'),'</p>',
 
 </div>
 
-
 <div class="listComments">
+<!-- systeme pagination top -->
+<?php
+    include('Web/inc/allpages/pagination1.php'); 
+?>
+
 <h2 class="h2List">Liste des commentaires</h2>
 <?php
-    foreach ($commentManager->getListPublish() as $comment)
+        if (isset($message))
         {
-            $autor_id = $news->user_id();
-            $autor = $userManager->getUserById($autor_id);
-            $autorFamilyName = $autor['familyName'];
-            $autorFirstName = $autor['firstName'];
+            echo '<p class="notificationGreen">',$message, '</p><br />';
+        }
+    ?>
+<?php
+
+if (isset($infoNumberComments))
+{
+    echo '<p class="information">'.$infoNumberComments.'</p>'; '<br />';
+}
+
+    foreach ($commentManager->getListOfCommentToPulishByNews($started,$numberPerPage,$newsId) as $comment)
+        {
+            $commentAutor_id = $comment->user_id();
+            $commentAutor = $userManager->getUserById($commentAutor_id);
+            $commentAutorFamilyName = $commentAutor['familyName'];
+            $commentAutorFirstName = $commentAutor['firstName'];
             echo 
-            'Auteur : ',$autorFamilyName,' ',$autorFirstName,'<br>',
+            'Auteur : ',$commentAutorFamilyName,' ',$commentAutorFirstName,'<br>',
             'Date : ',$comment->dateCreated()->format('d/m/Y'),'<br>',
             'Contenu : ', $comment->content(),'<br>',
-            '<form action="',$base.'-',$id.'-',$comment->id(),'" method="post">
+            '<form action="',$base.'-',$pag.'-',$newsId.'-',$comment->id(),'" method="post">
             <input name="signal" class="boutonSignal" type="submit" value="Signaler ce commentaire"></form><br>'
             ;
         }
+include('Web/inc/allpages/pagination2.php'); 
 ?>
 </div>
 <div class="comments">
@@ -120,12 +151,7 @@ else
 ?>
 </div>
 
-
 <?php
 $content = ob_get_clean();
 require __DIR__.'/../../View/public/uniqueArticleView.php';
 ?>
-
-
-
-

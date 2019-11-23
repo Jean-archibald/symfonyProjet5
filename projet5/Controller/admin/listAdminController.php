@@ -4,6 +4,9 @@ $userManager = new \Model\UserManagerPDO($dao);
 $newsManager = new \Model\NewsManagerPDO($dao);
 $commentManager = new \Model\CommentManagerPDO($dao);
 
+include('Web/inc/admin/modify'.$modifyFormDirection.'Form.php'); 
+
+
 if ($direction == "newsTrash")
 {
     $numberTotal = $newsManager->countTrash();
@@ -45,14 +48,12 @@ ob_start();
 ?>
 
 
-<!-- systeme modification  -->
-<?php
-    include('Web/inc/admin/modify'.$modifyFormDirection.'Form.php'); 
-?>
-
 <!-- systeme to show trash list -->
 <?php
+if($numberTotal >= 1)
+{
     include('Web/inc/admin/'.$direction.'List.php'); 
+}
 ?>
 
 <!-- systeme pagination bottom -->

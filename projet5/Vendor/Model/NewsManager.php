@@ -14,6 +14,29 @@ abstract class NewsManager extends Manager
     abstract protected function add(News $news);
 
     /**
+     * Method to save a News
+     * @param $news news The news to save
+     * @see self::add()
+     * @see self::modify()
+     * @return void
+     */
+    abstract protected function save(News $news);
+    
+    /**
+     * Method to modify a news
+     * @param $chapter chapter the chapter to modify
+     * @return void
+     */
+    abstract protected function modify(News $news);
+
+    /**
+     * Method to delete a chapter
+     * @param $id int Identification of the chapter to delete
+     * @return void
+     */
+    abstract public function delete($id);
+
+    /**
     * Method to tell the total number of news
     * @return int
     */
@@ -25,12 +48,11 @@ abstract class NewsManager extends Manager
     */
     abstract public function countTrash();
 
-    /**
-     * Method to delete a chapter
-     * @param $id int Identification of the chapter to delete
-     * @return void
-     */
-    abstract public function delete($id);
+       /**
+    * Method to tell if some user wrote some news or not
+    * @return void
+    */
+    abstract public function newsExist($user_id);
 
      /**
      * Method return a list of asked chapters
@@ -48,6 +70,15 @@ abstract class NewsManager extends Manager
      */
     abstract public function getListTrash($start = -1,$limit = -1);
 
+
+     /**
+     * Method return a list of asked chapters in trash
+     * @param $start int The first chapter to select
+     * @param $limit int The number of chapter to select
+     * @return array The list of the chapters in trash, Each entrance is an instance of Chapter.
+     */
+    abstract public function getListByAutor($user_id);
+
     /**
      * Metho return a specific news
      * @param $id int Identification of the news to get
@@ -55,21 +86,7 @@ abstract class NewsManager extends Manager
      */
     abstract public function getUnique($id);
     
-    /**
-     * Method to save a News
-     * @param $news news The news to save
-     * @see self::add()
-     * @see self::modify()
-     * @return void
-     */
-    abstract protected function save(News $news);
-    
-    /**
-     * Method to modify a news
-     * @param $chapter chapter the chapter to modify
-     * @return void
-     */
-    abstract protected function modify(News $news);
+
 
 
 }

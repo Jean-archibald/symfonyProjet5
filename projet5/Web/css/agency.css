@@ -727,6 +727,11 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   text-align: center !important;
 }
 
+.notificationGreen
+{
+  color:green !important;
+}
+
 /*Div of editor*/
 .divEdit
 {
@@ -753,6 +758,7 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 }
 .boutonModify:hover
 {
+  color: #FF4500 !important;
   text-decoration: underline;
   font-weight: bold;
 }
@@ -871,6 +877,15 @@ padding:20px;
   color: #FF4500 !important;
 }
 
+.notification
+{
+  text-align: center;
+  background-color: white;
+  margin:30px;
+  padding:30px;
+  border: 1px solid;
+  border-color:#FF4500;
+}
 /*liste article public */
 @media (max-width: 750px) {
   .responsiveTable
@@ -890,4 +905,31 @@ padding:20px;
     display: inline;
     color:red;
   }
+}
+
+/*Page My Account */
+.myAccount
+{
+  background-color: white;
+  margin:30px;
+  padding:30px;
+  border: 1px solid;
+  border-color:#FF4500;
+}
+
+.boutonDelete
+{
+  color:white !important;
+  background-color:red !important;
+  border: 1px solid;
+  border-color:black;
+}
+
+
+.boutonDelete:hover
+{
+  color:#FF4500 !important;
+  background-color:white !important;
+  text-decoration: underline;
+  font-weight: bold;
 }

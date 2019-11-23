@@ -41,7 +41,7 @@
                             <div class="divBoutonModify">
                             <form action="',$base.'-',$pag.'-',$news->id(),'" method="post">
                             <input name="publish" class="boutonModify" type="submit" value="Publier"></form>
-                            | <a class="boutonModify linkModify" target="_blank" href="lire-',$news->id(), '-0">Aperçu</a>
+                            | <a class="boutonModify linkModify" target="_blank" href="lire-0-',$news->id(), '-0">Aperçu</a>
                             | <form action="',$base.'-',$pag.'-',$news->id(),'" method="post">
                             <input name="unpublish" class="boutonModify" type="submit" value="Brouillon"></form>
                             | <a class="boutonModify linkModify" href="modifierArticle-',$news->id(), '"> Modifier</a>

@@ -23,12 +23,62 @@ class NewsManagerPDO extends NewsManager
         $request->execute();
     }
 
+     /**
+    * @see NewsManager::save()
+    */
+    public function save (News $news)
+    {
+        if ($news->isValid())
+        {
+            $news->isNew() ? $this->add($news) : $this->modify($news);
+        }
+        else
+        {
+            throw new RuntimeException('La News doit être valide pour être enregistrée');
+        }
+    }
+
+    /**
+    * @see NewsManager::modify()
+    */
+    protected function modify(News $news)
+    {
+    $request = $this->dao->prepare('UPDATE News 
+    SET  user_id = :user_id, title = :title, content = :content, status = :status, trash = :trash, dateModified = NOW()
+    WHERE id = :id');
+   
+    $request->bindValue(':user_id', $news->user_id());    
+    $request->bindValue(':title', $news->title());
+    $request->bindValue(':content', $news->content());
+    $request->bindValue(':status', $news->status());
+    $request->bindValue(':trash', $news->trash());
+    $request->bindValue(':id', $news->id(), \PDO::PARAM_INT);
+
+    $request->execute();
+    }
+
+     /**
+     * @see NewsManager::delete()
+     */
+    public function delete($id)
+    {
+        $this->dao->exec('DELETE FROM News WHERE id = '.(int) $id);
+    }
+
     /**
      * @see NewsManager::count()
      */
     public function count()
     {
         return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'0\' ')->fetchColumn();
+    }
+
+    /**
+     * @see NewsManager::count()
+     */
+    public function countPublish()
+    {
+        return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'0\' AND status = \'publié\' ')->fetchColumn();
     }
 
      /**
@@ -39,13 +89,18 @@ class NewsManagerPDO extends NewsManager
         return $this->dao->query('SELECT COUNT(*) FROM News WHERE trash = \'1\' ')->fetchColumn();
     }
 
-    /**
-     * @see NewsManager::delete()
+      /**
+     * @see NewsManager:newsExist()
      */
-    public function delete($id)
+    public function newsExist($user_id)
     {
-        $this->dao->exec('DELETE FROM News WHERE id = '.(int) $id);
+        $request = $this->dao->prepare('SELECT * FROM news WHERE user_id = ?');
+        $request->execute(array($user_id));
+        $newsExist = $request->rowCount();
+
+        return $newsExist;
     }
+
 
     /**
      * @see NewsManager::getList()
@@ -81,6 +136,42 @@ class NewsManagerPDO extends NewsManager
 
         return $newsList;
     } 
+
+    /**
+     * @see NewsManager::getListPublish()
+     */
+    public function getListPublish($start = -1, $limit = -1)
+    {
+        $sql = 'SELECT id, user_id, title, content, status, trash, dateCreated, dateModified 
+        FROM News
+        WHERE trash = \'0\'
+        AND status = \'publié\'
+        ORDER BY dateCreated DESC';
+
+        //Check if the given param are int
+        if ($start != -1 || $limit != -1)
+        {
+            $sql .= ' LIMIT '.(int) $limit.' OFFSET '.(int) $start;
+        }
+
+        $request = $this->dao->query($sql);
+        $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\News');
+        
+        $newsList = $request->fetchAll();
+        
+
+        // Use foreach to give instance of DateTime as created date and modified date.
+        foreach ($newsList as $news)
+        {
+            
+            $news->setDateCreated(new \DateTime($news->dateCreated()));
+            $news->setDateModified(new \DateTime($news->dateModified()));
+        }
+
+        $request->closeCursor();
+
+        return $newsList;
+    }
 
 
     /**
@@ -157,54 +248,4 @@ class NewsManagerPDO extends NewsManager
    
         return $news;
     }
-
-    
-    
-    
-    /**
-    * @see NewsManager::save()
-    */
-    public function save (News $news)
-    {
-        if ($news->isValid())
-        {
-            $news->isNew() ? $this->add($news) : $this->modify($news);
-        }
-        else
-        {
-            throw new RuntimeException('La News doit être valide pour être enregistrée');
-        }
-    }
-
-    /**
-    * @see NewsManager::modify()
-    */
-    protected function modify(News $news)
-    {
-    $request = $this->dao->prepare('UPDATE News 
-    SET  user_id = :user_id, title = :title, content = :content, status = :status, trash = :trash, dateModified = NOW()
-    WHERE id = :id');
-   
-    $request->bindValue(':user_id', $news->user_id());    
-    $request->bindValue(':title', $news->title());
-    $request->bindValue(':content', $news->content());
-    $request->bindValue(':status', $news->status());
-    $request->bindValue(':trash', $news->trash());
-    $request->bindValue(':id', $news->id(), \PDO::PARAM_INT);
-
-    $request->execute();
-    }
- 
-      /**
-     * @see NewsManager:newsExist()
-     */
-    public function newsExist($user_id)
-    {
-        $request = $this->dao->prepare('SELECT * FROM news WHERE user_id = ?');
-        $request->execute(array($user_id));
-        $newsExist = $request->rowCount();
-
-        return $newsExist;
-    }
-   
 }

@@ -24,93 +24,7 @@ class UserManagerPDO extends UserManager
         $request->execute();
     }
 
-     /**
-     * @see UserManager::mailExist()
-     */
-    public function mailExist($email)
-    {
-        $request = $this->dao->prepare('SELECT * FROM users WHERE email = ?');
-        $request->execute(array($email));
-        $mailExist = $request->rowCount();
-
-        return $mailExist;
-    }
-
-     /**
-     * @see UserManager:userExist()
-     */
-    public function userExist($email,$password)
-    {
-        $request = $this->dao->prepare('SELECT * FROM users WHERE email = ? AND password = ?');
-        $request->execute(array($email, $password));
-        $userExist = $request->rowCount();
-
-        return $userExist;
-    }
-
-    /**
-     * @see UserManager::count()
-     */
-    public function count()
-    {
-        return $this->dao->query('SELECT COUNT(*) FROM users WHERE trash = \'0\'')->fetchColumn();
-    }
-
-   
-
-     /**
-     * @see UserManager::count()
-     */
-    public function countTrash()
-    {
-        return $this->dao->query('SELECT COUNT(*) FROM users WHERE trash = \'1\' ')->fetchColumn();
-    }
-
-    /**
-     * @see UserManager::delete()
-     */
-    public function delete($id)
-    {
-        $this->dao->exec('DELETE FROM users WHERE id = '.(int) $id);
-    }
-
-    /**
-    * @see UserManager::confirm()
-    */
-    public function getUserByEmail($email)
-    {
-        $request = $this->dao->prepare('SELECT id, familyName, firstName, email, password, status
-        FROM users WHERE email = :email');
-        $request->bindValue(':email', $email);
-        $request->execute();
-
-        $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
-
-        $user = $request->fetch();
-
-        return $user;
-    }
-
-    /**
-    * @see UserManager::confirm()
-    */
-    public function getUserById($id)
-    {
-        $request = $this->dao->prepare('SELECT id, familyName, firstName, email, password, status
-        FROM users WHERE id = :id');
-        $request->bindValue(':id', (int) $id, \PDO::PARAM_INT);
-        $request->execute();
-
-        $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
-
-        $user = $request->fetch();
-
-        return $user;
-    }
-
- 
-
-     /**
+      /**
     * @see UserManager::save()
     */
     public function save(User $user)
@@ -143,6 +57,88 @@ class UserManagerPDO extends UserManager
     $request->bindValue(':id', $user->id(), \PDO::PARAM_INT);
 
     $request->execute();
+    }
+
+     /**
+     * @see UserManager::delete()
+     */
+    public function delete($id)
+    {
+        $this->dao->exec('DELETE FROM users WHERE id = '.(int) $id);
+    }
+
+    /**
+     * @see UserManager::count()
+     */
+    public function count()
+    {
+        return $this->dao->query('SELECT COUNT(*) FROM users WHERE trash = \'0\'')->fetchColumn();
+    }
+
+     /**
+     * @see UserManager::count()
+     */
+    public function countTrash()
+    {
+        return $this->dao->query('SELECT COUNT(*) FROM users WHERE trash = \'1\' ')->fetchColumn();
+    }
+
+     /**
+     * @see UserManager::mailExist()
+     */
+    public function mailExist($email)
+    {
+        $request = $this->dao->prepare('SELECT * FROM users WHERE email = ?');
+        $request->execute(array($email));
+        $mailExist = $request->rowCount();
+
+        return $mailExist;
+    }
+
+     /**
+     * @see UserManager:userExist()
+     */
+    public function userExist($email,$password)
+    {
+        $request = $this->dao->prepare('SELECT * FROM users WHERE email = ? AND password = ?');
+        $request->execute(array($email, $password));
+        $userExist = $request->rowCount();
+
+        return $userExist;
+    }
+
+    /**
+    * @see UserManager::confirm()
+    */
+    public function getUserByEmail($email)
+    {
+        $request = $this->dao->prepare('SELECT id, familyName, firstName, email, password, status
+        FROM users WHERE email = :email');
+        $request->bindValue(':email', $email);
+        $request->execute();
+
+        $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
+
+        $user = $request->fetch();
+
+        return $user;
+    }
+
+    /**
+    * @see UserManager::confirm()
+    */
+    public function getUserById($id)
+    {
+        $request = $this->dao->prepare('SELECT id, familyName, firstName, email, password, status, trash, date_created
+        FROM users WHERE id = :id');
+        $request->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+        $request->execute();
+
+        $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
+
+        $user = $request->fetch();
+
+        return $user;
     }
 
     /**

@@ -1,5 +1,9 @@
 <?php
-echo $information, '<br />';
+if (isset($information))
+{
+  echo $information, '<br />';
+}
+
 $numberPerPage = 5;
 $totalPages = ceil($numberTotal/$numberPerPage);
 

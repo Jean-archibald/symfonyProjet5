@@ -41,14 +41,12 @@ if (isset($_POST['trash']))
     $cutUrl = explode("-", $url);
     $id = $params[2];
     $comment = $commentManager->getUnique($id);
-
     $comment->setStatus('brouillon');
     $comment->setTrash(1);
     
     if($comment->isValid())
     {
         $commentManager->save($comment);
-
         $message = '<p class="information">Le commentaire a bien été mis dans la corbeille.</p>';
     }
 }
@@ -64,7 +62,6 @@ if (isset($_POST['untrash']))
     if($comment->isValid())
     {
         $commentManager->save($comment);
-
         $message = '<p class="information">Le commentaire a bien été sorti de la corbeille.</p>';
     }
 }
