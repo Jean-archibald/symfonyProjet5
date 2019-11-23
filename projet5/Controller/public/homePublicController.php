@@ -8,6 +8,8 @@ $numberTotal = (int)$newsManager->countPublish();
 ob_start();
 
 
+
+
 ?>
 <!-- Header -->
 <?php
@@ -32,6 +34,11 @@ include('Web/inc/allpages/about.php');
 <!-- Team -->
 <?php
 include('Web/inc/allpages/team.php'); 
+?>
+
+<!-- Contact -->
+<?php
+include('Web/inc/allpages/contact.php'); 
 ?>
 
 <?php
