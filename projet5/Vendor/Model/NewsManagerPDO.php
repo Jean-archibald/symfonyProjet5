@@ -216,9 +216,10 @@ class NewsManagerPDO extends NewsManager
     {
         $sql = 'SELECT id, user_id
         FROM News
-        WHERE user_id = "'.$user_id.'"';
+        WHERE user_id = ?';
 
-        $request = $this->dao->query($sql);
+        $request = $this->dao->prepare($sql);
+        $request->execute(array($user_id));
         $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\News');
         
         $newsList = $request->fetchAll();
