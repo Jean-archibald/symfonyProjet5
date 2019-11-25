@@ -37,7 +37,7 @@ if($started >= 0 && $numberTotal != 0)
             $autorFamilyName,' ',$autorFirstName,'</p><p>Publié le ',
             $news->dateCreated()->format('d/m/Y'),'</p><p>',
             ($news->dateCreated() == $news->dateModified() ? '' : $news->dateModified()->format('d/m/Y')),'</p><p>
-            <a class="boutonModify linkModify" target="_blank" href="lire-0-',$news->id(), '-0">Lire</a>
+            <a class="boutonModify linkModify articleLink" target="_blank" href="lire-0-',$news->id(), '-0">Lire</a>
             </p></div>', "\n";
         }
         ?>

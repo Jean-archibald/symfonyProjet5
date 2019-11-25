@@ -933,3 +933,13 @@ padding:20px;
   text-decoration: underline;
   font-weight: bold;
 }
+
+#articles
+{
+  background-color: whitesmoke!important;
+}
+
+.articleLink
+{
+  color:red!important;
+}
